@@ -12,9 +12,8 @@ from tensorflow.keras.optimizers import Adam
 import random
 import numpy as np
 
-# from keras.layers import Dense, Flatten
-# from keras.models import Sequential
-# from keras.optimizers import Adam
+# Source
+# https://medium.com/@abhishek.bn93/using-keras-reinforcement-learning-api-with-openai-gym-6c2a35036c83
 
 
 env = gym.make("CartPole-v1")
