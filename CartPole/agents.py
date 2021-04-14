@@ -17,4 +17,5 @@ class Random:
 
     def get_action(self, state):
         action = random.choice(range(self.action_size))
+
         return action
