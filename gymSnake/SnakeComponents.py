@@ -1,38 +1,12 @@
 import pygame
 import sys
-import random
 import Entity
 import Config
+import Utility
+
 
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 480
-
-GRID_SIZE = (20, 20)
-GRID_WIDTH = SCREEN_HEIGHT / GRID_SIZE[0]
-GRID_HEIGHT = SCREEN_WIDTH / GRID_SIZE[1]
-
-UP = (0, -1)
-DOWN = (0, 1)
-LEFT = (-1, 0)
-RIGHT = (1, 0)
-
-
-class Directions(object):
-    def __init__(self):
-        self.up = (0, -1)
-        self.down = (0, 1)
-        self.left = (-1, 0)
-        self.right = (1, 0)
-
-    def random(self):
-        return random.choice([self.up, self.down, self.left, self.right])
-
-
-class Grid(object):
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-        self.size = (width, height)
 
 
 class Draw(object):
@@ -86,8 +60,7 @@ class Draw(object):
 
 class Game(object):
     def __init__(self, mode):
-        self.directions = Directions()
-        self.grid = Grid(GRID_WIDTH, GRID_HEIGHT)
+        self.grid = Utility.grid()
         self.mode = mode
         self.start_pos = [((self.grid.width / 2), (self.grid.height / 2))]
         self.snake = Entity.Snake(self.grid)
@@ -121,7 +94,7 @@ class Game(object):
         draw = None
         if mode == "human":
             if draw is None:
-                draw = Draw((SCREEN_WIDTH, SCREEN_HEIGHT), GRID_WIDTH, GRID_HEIGHT, GRID_SIZE)
+                draw = Draw((SCREEN_WIDTH, SCREEN_HEIGHT), self.grid.width, self.grid.height, self.grid.size)
             draw.step(self.snake, self.food, self.score)
             pygame.display.update()
 
@@ -133,14 +106,14 @@ class Game(object):
 
     def control_keys(self):
         movement_keys = {
-            pygame.K_UP: UP,
-            pygame.K_DOWN: DOWN,
-            pygame.K_LEFT: LEFT,
-            pygame.K_RIGHT: RIGHT,
-            pygame.K_w: UP,
-            pygame.K_s: DOWN,
-            pygame.K_a: LEFT,
-            pygame.K_d: RIGHT,
+            pygame.K_UP: Config.move_up,
+            pygame.K_DOWN: Config.move_down,
+            pygame.K_LEFT: Config.move_left,
+            pygame.K_RIGHT: Config.move_right,
+            pygame.K_w: Config.move_up,
+            pygame.K_s: Config.move_down,
+            pygame.K_a: Config.move_left,
+            pygame.K_d: Config.move_right,
         }
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -165,7 +138,7 @@ def main():
 
     is_running = True
     while is_running:
-        action = random.choice([UP, DOWN, LEFT, RIGHT])
+        action = Utility.random_direction()
         game.step(action)
 
 

@@ -3,15 +3,13 @@ import Config
 
 
 # this modules provide utility as easy access to the configuration from the config file.
-class Directions(object):
-    def __init__(self):
-        self.up = Config.move_up
-        self.down = Config.move_down
-        self.left = Config.move_left
-        self.right = Config.move_right
 
-    def random(self):
-        return random.choice([self.up, self.down, self.left, self.right])
+def random_direction():
+    return random.choice([Config.move_up, Config.move_down, Config.move_left, Config.move_right])
+
+
+def grid():
+    return Grid()
 
 
 class Grid(object):
