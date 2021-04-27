@@ -9,6 +9,7 @@ import GUI
 
 class Game(object):
     def __init__(self, mode):
+        pygame.init()
         self.grid = Utility.grid()
         self.mode = mode
         self.start_pos = [((self.grid.width / 2), (self.grid.height / 2))]
@@ -19,11 +20,14 @@ class Game(object):
 
     def step(self, action):
         self.clock.tick(10)
-        if self.mode is "human":
+
+        if self.mode == "human":
             self.control_keys()
         else:
             self.snake.turn(action)
+
         self.snake.move()
+
         if self.snake.self_bite:
             self.reset()
 
@@ -31,7 +35,8 @@ class Game(object):
             self.snake.length += 1
             self.score += 1
             self.food.randomize_position()
-        self.print_positions()
+
+        # self.print_positions()    # Helps to debug non-gui mode by outputting to the console
         self.render(self.mode)
 
     def reset(self):
@@ -82,7 +87,6 @@ class Game(object):
 
 
 def main():
-    pygame.init()
     game = Game("human")
 
     is_running = True
