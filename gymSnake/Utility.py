@@ -1,11 +1,23 @@
+# The purpose of this module is to provide utility as easy access to the configuration from the config file.
 import random
 import Config
 
+move_options = {
+    0: Config.move_up,
+    1: Config.move_down,
+    2: Config.move_left,
+    3: Config.move_right,
+}
 
-# this modules provide utility as easy access to the configuration from the config file.
 
 def random_direction():
-    return random.choice([Config.move_up, Config.move_down, Config.move_left, Config.move_right])
+    rand = random.randint(0, 3)
+    return move_options[rand]
+
+
+def decode_action(action):
+    movement = move_options[action]
+    return movement
 
 
 def grid():
