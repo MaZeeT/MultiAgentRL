@@ -3,8 +3,9 @@
 window_width = 480
 window_height = 480
 
-grid_width = 20
-grid_height = 20
+grid_width = 24
+grid_height = 24
+grid_colors = (93, 216, 228), (93, 150, 228)    # colors defined by RGB (red, green, blue) from 0 to 255
 
 move_up = (0, -1)
 move_down = (0, 1)

@@ -28,4 +28,5 @@ class Grid(object):
     def __init__(self):
         self.width = Config.grid_width
         self.height = Config.grid_height
-        self.size = (self.width, self.height)
+        self.color = Config.grid_colors
+        self.tile_size = (Config.window_width / self.width, Config.window_height / self.height)

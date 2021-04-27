@@ -8,30 +8,29 @@ class Draw(object):
         self.screen_size = (Config.window_width, Config.window_height)
         self.screen = pygame.display.set_mode(self.screen_size, 0, 32)
         self.grid = grid
-        self.grid_color = ((93, 216, 228), (93, 150, 228))
         self.font = pygame.font.SysFont("monospace", 32)
         self.surface = pygame.Surface(self.screen.get_size()).convert()
 
     def draw_grid(self):
         for y in range(0, int(self.grid.height)):
             for x in range(0, int(self.grid.width)):
-                color = self.grid_color[(x + y) % 2]  # alternating colors by (x + y) % 2
-                r = pygame.Rect((x * self.grid.size[0], y * self.grid.size[1]), self.grid.size)
+                color = self.grid.color[(x + y) % 2]  # alternating colors by (x + y) % 2
+                r = pygame.Rect((x * self.grid.tile_size[0], y * self.grid.tile_size[1]), self.grid.tile_size)
                 pygame.draw.rect(self.surface, color, r)
 
     def draw_food(self, food):
-        r = pygame.Rect(self.cal_position(food.position), self.grid.size)
+        r = pygame.Rect(self.cal_position(food.position), self.grid.tile_size)
         pygame.draw.rect(self.surface, food.color, r)
 
     def draw_snake(self, snake):
         for p in snake.positions:
-            r = pygame.Rect(self.cal_position((p[0], p[1])), self.grid.size)
+            r = pygame.Rect(self.cal_position((p[0], p[1])), self.grid.tile_size)
             pygame.draw.rect(self.surface, snake.color, r)
             pygame.draw.rect(self.surface, (93, 216, 228), r, 1)
 
     def cal_position(self, position):
         x, y = position
-        return x * self.grid.size[0], y * self.grid.size[1]
+        return x * self.grid.tile_size[0], y * self.grid.tile_size[1]
 
     def draw_score(self, score):
         score_text = self.font.render("Score {0}".format(score), True, (255, 0, 0))
