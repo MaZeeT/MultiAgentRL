@@ -11,7 +11,7 @@ move_options = {
 
 
 def random_direction():
-    rand = random.randint(0, 4)
+    rand = random.randint(0, 3)
     return move_options[rand]
 
 
