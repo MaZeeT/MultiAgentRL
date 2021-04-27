@@ -37,7 +37,6 @@ class Game(object):
             self.food.randomize_position()
 
         # self.print_positions()    # Helps to debug non-gui mode by outputting to the console
-        self.render(self.mode)
 
     def reset(self):
         self.snake = Entity.Snake(self.grid)
@@ -88,11 +87,12 @@ class Game(object):
 
 def main():
     game = Game("human")
-
+    mode = "human"
     is_running = True
     while is_running:
         action = Utility.random_direction()
         game.step(action)
+        game.render(mode)
 
 
 main()
