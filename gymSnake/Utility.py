@@ -1,8 +1,7 @@
+# The purpose of this module is to provide utility as easy access to the configuration from the config file.
 import random
 import Config
 
-
-# this modules provide utility as easy access to the configuration from the config file.
 
 def random_direction():
     return random.choice([Config.move_up, Config.move_down, Config.move_left, Config.move_right])
