@@ -17,7 +17,8 @@ class GymSnake(gym.Env):
         self.clock = pygame.time.Clock()
 
         self.action_space = gym.spaces.Discrete(4)
-        self.observation_space # todo figure this out
+        self.observation_space  # todo figure this out... [Array of snake positions; direction of the snake; food position]
+        # looks like it is the shape of the returned state... Is it velocity + angel + position that is return or something else like a picture in a 3color, height, width.
         self.state = self.get_state()
 
     def step(self, action):
@@ -31,10 +32,12 @@ class GymSnake(gym.Env):
             self.score += 1
             self.food.randomize_position()
 
+        # the purpose of the vars below are to help see were the observation, reward, done, info consist off.
+        observation = self.get_state()
         reward = self.score
         done = self.snake.self_bite
         info = {"Steps passed: {0}".format(self.steps)}
-        return self.get_state(), reward, done, info
+        return observation, reward, done, info
 
     def reset(self):
         self.snake = Entity.Snake(self.grid)
@@ -46,8 +49,7 @@ class GymSnake(gym.Env):
     def render(self, mode='human'):
         draw = None
         if mode == "human":
-            if draw is None:
-                draw = GUI.Draw(self.grid)
+            if draw is None: draw = GUI.Draw(self.grid)
             draw.step(self.snake, self.food, self.score)
             pygame.display.update()
 
