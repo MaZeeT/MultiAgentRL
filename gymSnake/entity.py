@@ -1,5 +1,6 @@
 # The purpose of this module is to define the different entities in the snake game.
 import random
+import utility
 
 
 class Food(object):
