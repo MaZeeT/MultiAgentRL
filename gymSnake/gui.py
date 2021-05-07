@@ -1,11 +1,11 @@
 # The purpose of this module is to provide the human interface for the snake game.
 import pygame
-import Config
+import config
 
 
 class Draw(object):
     def __init__(self, grid):
-        self.screen_size = (Config.window_width, Config.window_height)
+        self.screen_size = (config.window_width, config.window_height)
         self.screen = pygame.display.set_mode(self.screen_size, 0, 32)
         self.grid = grid
         self.font = pygame.font.SysFont("monospace", 32)

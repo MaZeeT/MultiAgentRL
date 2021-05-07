@@ -1,18 +1,18 @@
 import gym
 import pygame
-import Entity
-import Utility
-import GUI
+import entity
+import utility
+import gui
 
 
 class GymSnake(gym.Env):
     def __init__(self):
         pygame.init()
-        self.grid = Utility.grid()
+        self.grid = utility.grid()
         self.steps = 0
         self.start_pos = [((self.grid.width / 2), (self.grid.height / 2))]
-        self.snake = Entity.Snake(self.grid)
-        self.food = Entity.Food(self.grid)
+        self.snake = entity.Snake(self.grid)
+        self.food = entity.Food(self.grid)
         self.score = 0
         self.clock = pygame.time.Clock()
 
@@ -22,7 +22,7 @@ class GymSnake(gym.Env):
         self.state = self.get_state()
 
     def step(self, action):
-        decoded_action = Utility.decode_action(action)
+        decoded_action = utility.decode_action(action)
         self.steps += 1
         self.clock.tick(10)
         self.snake.turn(decoded_action)
@@ -40,17 +40,19 @@ class GymSnake(gym.Env):
         return observation, reward, done, info
 
     def reset(self):
-        self.snake = Entity.Snake(self.grid)
-        self.food = Entity.Food(self.grid)
+        self.snake = entity.Snake(self.grid)
+        self.food = entity.Food(self.grid)
         self.score = 0
         self.steps = 0
         return self.get_state()
 
     def render(self, mode='human'):
-        draw = None
+        user_interface = None
         if mode == "human":
-            if draw is None: draw = GUI.Draw(self.grid)
-            draw.step(self.snake, self.food, self.score)
+            if user_interface is None:
+                user_interface = gui.Draw(self.grid)
+
+            user_interface.step(self.snake, self.food, self.score)
             pygame.display.update()
 
     def get_state(self):
