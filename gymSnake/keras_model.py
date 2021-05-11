@@ -1,8 +1,11 @@
-import gym
-import gym_snake
-import random
+import os
 
-from tensorflow import keras
+import gym
+from tensorflow.python.keras import Input
+
+import gym_snake
+
+from tensorflow import keras, uint32
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
@@ -26,32 +29,37 @@ print(env.observation_space.shape)
 
 def get_model(shape, actions):
     model = Sequential()
-    model.add(keras.layers.Input(shape=shape))
+    model.add(Input(shape=shape, batch_size=1, dtype=uint32))
+    # model.add(keras.layers.Input(shape=shape))
     model.add(Flatten())
-    model.add(Dense(24, activation="relu"))
-    model.add(Dense(24, activation="relu"))
+    model.add(Dense(96, activation="relu"))
+    model.add(Dense(48, activation="relu"))
     model.add(Dense(24, activation="relu"))
     model.add(Dense(actions, activation="linear"))
     return model
 
-
 model = get_model(states, actions)
+print(states)
 model.summary()
 
 from rl.agents import SARSAAgent
-
+file_path = "./"
+file_dir = os.path.dirname(file_path)
 
 sarsa = SARSAAgent(model, actions)
 sarsa.compile("adam", metrics=["mse"])
-sarsa.fit(env, nb_steps=50000, visualize=False, verbose=1)
-episodes = 10
+#sarsa.load_weights(file_dir)
+sarsa.fit(env, nb_steps=25000, visualize=False, verbose=1)
+#sarsa.save_weights(file_dir, overwrite=True)
+
+episodes = 1
 for episode in range(1, episodes + 1):
-    state = env.reset()
+    observation = env.reset()
     done = False
     score = 0
     while not done:
         env.render()
-        action = random.randint(0, 4)
-        n_state, reward, done, info = env.step(action)
+        action = sarsa.forward(observation)
+        observation, reward, done, info = env.step(action)
         score += reward
     print("episode {} score {}".format(episode, score))

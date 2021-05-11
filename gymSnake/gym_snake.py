@@ -1,4 +1,5 @@
 import gym
+import numpy
 import numpy as np
 import pygame
 import entity
@@ -16,21 +17,20 @@ class GymSnake(gym.Env):
         self.start_pos = [((self.grid.width / 2), (self.grid.height / 2))]
         self.snake = entity.Snake(self.grid)
         self.food = entity.Food(self.grid)
-        self.score = 0
+        self.score = 1
         self.clock = pygame.time.Clock()
         self.player_controlled = False
 
-        self.action_space = gym.spaces.Discrete(4)
+        self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(
-            low=0, high=4, shape=(config.grid_width, config.grid_height, 1), dtype=np.uint8)
-        # todo figure this out... [Array of snake positions; direction of the snake; food position]
-        # looks like it is the shape of the returned state... Is it velocity + angel + position that is return or something else like a picture in a 3color, height, width.
+            low=0, high=3, shape=(1, config.grid_width, config.grid_height), dtype=np.uint8)
+        # 1 in shape is a hack to make the shape fit with keras/tensorflow
         self.state = self.get_state()
 
     def step(self, action):
-        action = utility.decode_action(action) # todo fix awefull movement encoding to int from tuple
+        # action = utility.decode_action(action) # todo fix awefull movement encoding to int from tuple
         self.steps += 1
-        self.clock.tick(10)
+        #self.clock.tick(10)
         control_action = self.control_keys()
         if self.player_controlled:
             action = control_action
@@ -54,9 +54,11 @@ class GymSnake(gym.Env):
         self.game_array()
         self.snake = entity.Snake(self.grid)
         self.food = entity.Food(self.grid)
-        self.score = 0
+        self.score = 1
         self.steps = 0
-        return self.game_array()
+
+        observation = self.game_array()
+        return observation
 
     def render(self, mode='human'):
         user_interface = None
@@ -75,10 +77,7 @@ class GymSnake(gym.Env):
         board = self.game_array_add_snake(board, self.snake)
         board = self.game_array_add_head(board, self.snake)
         board = self.game_array_add_food(board, self.food)
-        print("------------------------------------")
-        print(board)
-        print("------------------------------------")
-        # TODO kill print lines
+        #self.print_board(board)
         return board
 
     def game_array_add_head(self, board, snake):
@@ -100,6 +99,11 @@ class GymSnake(gym.Env):
         y = food.position[1]
         board[x, y] = 3
         return board
+
+    def print_board(self, board):
+        print("------------------------------------")
+        print(board)
+        print("------------------------------------")
 
     def control_keys(self):
         movement_keys = {

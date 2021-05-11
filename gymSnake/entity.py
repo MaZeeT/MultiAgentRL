@@ -18,6 +18,14 @@ class Food(object):
 
 
 class Snake(object):
+
+    movement_direction = [
+        (0, -1),    # 0
+        (0, 1),     # 1
+        (-1, 0),    # 2
+        (1, 0),     # 3
+    ]
+
     def __init__(self, grid, direction=(1, 0)):
         self.grid = grid
         self.length = 1
@@ -29,7 +37,8 @@ class Snake(object):
     def get_head_position(self):
         return self.positions[0]
 
-    def turn(self, point):
+    def turn(self, direction):
+        point = self.movement_direction[direction]
         if self.length > 1 and (point[0] * -1, point[1] * -1) == self.direction:
             return
         else:
