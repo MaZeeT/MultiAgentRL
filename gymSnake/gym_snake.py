@@ -24,7 +24,8 @@ class GymSnake(gym.Env):
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(
             low=0, high=3, shape=(1, config.grid_width, config.grid_height), dtype=np.uint8)
-        # 1 in shape is a hack to make the shape fit with keras/tensorflow
+        # 1 in shape is the dimension at each position in the array, if it was a picture it would be 3 for RGB,
+        # but 1 here for the int marking if it is empty, food, snake-head or tail
         self.state = self.get_state()
 
     def step(self, action):
