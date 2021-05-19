@@ -57,7 +57,6 @@ def train_model(agent, steps=10000, render=False):
     return sarsa
 
 
-
 model = get_model(states, actions)
 print(states)
 model.summary()
@@ -65,8 +64,8 @@ model.summary()
 
 sarsa = SARSAAgent(model, actions)
 sarsa.compile("adam", metrics=["mse"])
-#train_model(sarsa, steps=50000)
-#save_model(sarsa)
+# train_model(sarsa, steps=50000)
+# save_model(sarsa)
 load_model(sarsa)
 train_model(sarsa, steps=2000, render=True)
 
