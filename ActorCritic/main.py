@@ -1,5 +1,6 @@
 # https://keras.io/examples/rl/actor_critic_cartpole/
 
+import os
 import gym
 import numpy as np
 import tensorflow as tf
@@ -37,13 +38,32 @@ rewards_history = []
 running_reward = 0
 episode_count = 0
 
+
+file_path = "./"
+file_dir = os.path.dirname(file_path)
+
+
+def save_model(agent):
+    agent.save_weights(file_dir, overwrite=True)
+    print("Saved model")
+
+
+def load_model(agent):
+    agent.load_weights(file_dir)
+    print("Loaded model")
+    return agent
+
+
+load_model(model)
+
+
 while True:  # Run until solved
     state = env.reset()
     episode_reward = 0
     with tf.GradientTape() as tape:
         for timestep in range(1, max_steps_per_episode):
-            # if running_reward > 175:
-                # env.render()  # Adding this line would show the attempts
+            if running_reward > 175:
+                env.render()  # Adding this line would show the attempts
             # of the agent in a pop up window.
 
             state = tf.convert_to_tensor(state)
@@ -119,7 +139,14 @@ while True:  # Run until solved
         template = "running reward: {:.2f} at episode {}"
         print(template.format(running_reward, episode_count))
 
-    if running_reward > 195:  # Condition to consider the task solved
+    if running_reward > 19500:  # Condition to consider the task solved
         print("Solved at episode {}!".format(episode_count))
+        save_model(model)
+        break
+
+    goal = 20
+    if episode_count > goal:
+        print("Stopped at {} episodes".format(goal))
+        save_model(model)
         break
 
