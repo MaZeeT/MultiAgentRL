@@ -10,24 +10,48 @@ from tensorflow.keras import layers
 # Configuration parameters for the whole setup
 seed = 42
 gamma = 0.99  # Discount factor for past rewards
-max_steps_per_episode = 10000
+max_steps_per_episode = 100000
 env = gym.make("CartPole-v0")  # Create the environment
 env.seed(seed)
 eps = np.finfo(np.float32).eps.item()  # Smallest number such that 1.0 + eps != 1.0
-
 
 # the actor critic implementation
 num_inputs = 4
 num_actions = 2
 num_hidden = 128
 
-inputs = layers.Input(shape=(num_inputs,))
-common = layers.Dense(num_hidden, activation="relu")(inputs)
-action = layers.Dense(num_actions, activation="softmax")(common)
-critic = layers.Dense(1)(common)
 
-model = keras.Model(inputs=inputs, outputs=[action, critic])
+class ActorCritic(object):
+    def __init__(self):
+        self.file_path = "./"
+        self.file_dir = os.path.dirname(self.file_path)
 
+        inputs = layers.Input(shape=(num_inputs,))
+        common = layers.Dense(num_hidden, activation="relu")(inputs)
+        action = layers.Dense(num_actions, activation="softmax")(common)
+        critic = layers.Dense(1)(common)
+
+        self.model = keras.Model(inputs=inputs, outputs=[action, critic])
+
+    def save_model(self):
+        self.model.save_weights(self.file_dir, overwrite=True)
+        print("Saved model")
+
+    def load_model(self):
+        self.model.load_weights(self.file_dir)
+        print("Loaded model")
+        return agent
+
+    def step(self, state):
+        return self.model(state)
+
+    def get_model(self):
+        return self.model
+
+
+agent = ActorCritic()
+#agent.load_model()
+model = agent.get_model()
 
 # training
 optimizer = keras.optimizers.Adam(learning_rate=0.01)
@@ -37,25 +61,6 @@ critic_value_history = []
 rewards_history = []
 running_reward = 0
 episode_count = 0
-
-
-file_path = "./"
-file_dir = os.path.dirname(file_path)
-
-
-def save_model(agent):
-    agent.save_weights(file_dir, overwrite=True)
-    print("Saved model")
-
-
-def load_model(agent):
-    agent.load_weights(file_dir)
-    print("Loaded model")
-    return agent
-
-
-load_model(model)
-
 
 while True:  # Run until solved
     state = env.reset()
@@ -71,7 +76,7 @@ while True:  # Run until solved
 
             # Predict action probabilities and estimated future rewards
             # from environment state
-            action_probs, critic_value = model(state)
+            action_probs, critic_value = agent.step(state)
             critic_value_history.append(critic_value[0, 0])
 
             # Sample action from action probability distribution
@@ -139,14 +144,15 @@ while True:  # Run until solved
         template = "running reward: {:.2f} at episode {}"
         print(template.format(running_reward, episode_count))
 
-    if running_reward > 19500:  # Condition to consider the task solved
+    if running_reward > 190:  # Condition to consider the task solved
         print("Solved at episode {}!".format(episode_count))
-        save_model(model)
+        #agent.save_model()
         break
 
-    goal = 20
+    goal = 2000
     if episode_count > goal:
         print("Stopped at {} episodes".format(goal))
-        save_model(model)
+        #agent.save_model()
         break
+
 
