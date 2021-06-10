@@ -9,7 +9,7 @@ from tensorflow.keras import layers
 # Configuration parameters for the whole setup
 from gymSnake import gym_snake
 
-seed = 42
+seed = 42  # Random seed, to make it reproducable
 gamma = 0.99  # Discount factor for past rewards
 max_steps_per_episode = 10000
 env = gym_snake.GymSnake()  # Create the environment
@@ -22,7 +22,7 @@ num_inputs = env.observation_space.shape
 num_actions = env.action_space.n
 num_hidden = 128
 
-inputs = layers.Input(shape=(num_inputs,))
+inputs = layers.Input(shape=num_inputs)
 common = layers.Dense(num_hidden, activation="relu")(inputs)
 action = layers.Dense(num_actions, activation="softmax")(common)
 critic = layers.Dense(1)(common)
@@ -39,7 +39,8 @@ rewards_history = []
 running_reward = 0
 episode_count = 0
 
-while True:  # Run until solved
+isRunning = True
+while isRunning:  # Run until solved
     state = env.reset()
     episode_reward = 0
     with tf.GradientTape() as tape:
@@ -49,6 +50,7 @@ while True:  # Run until solved
 
             state = tf.convert_to_tensor(state)
             state = tf.expand_dims(state, 0)
+            state = state[None, :, :, :]
 
             # Predict action probabilities and estimated future rewards
             # from environment state
@@ -56,8 +58,11 @@ while True:  # Run until solved
             critic_value_history.append(critic_value[0, 0])
 
             # Sample action from action probability distribution
-            action = np.random.choice(num_actions, p=np.squeeze(action_probs))
+            print(num_actions)
+            print(np.squeeze(action_probs))
+            action = np.random.choice(num_actions, p=np.squeeze(action_probs)[4])
             action_probs_history.append(tf.math.log(action_probs[0, action]))
+
 
             # Apply the sampled action in our environment
             state, reward, done, _ = env.step(action)
@@ -65,7 +70,7 @@ while True:  # Run until solved
             episode_reward += reward
 
             if done:
-                break
+                isRunning = False
 
         # Update running reward to check condition for solving
         running_reward = 0.05 * episode_reward + (1 - 0.05) * running_reward
@@ -122,5 +127,5 @@ while True:  # Run until solved
 
     if running_reward > 195:  # Condition to consider the task solved
         print("Solved at episode {}!".format(episode_count))
-        break
+        isRunning = False
 
