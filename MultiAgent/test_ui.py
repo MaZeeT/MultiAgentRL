@@ -1,13 +1,13 @@
 from unittest import TestCase
 from unittest.mock import patch
-from MultiAgent.ui import ui
+from MultiAgent.ui import UserInterface
 
 
 class Test_Input(TestCase):
-    method_patch = 'MultiAgent.ui.ui.get_input'
+    method_patch = 'MultiAgent.ui.UserInterface.get_input'
 
     def setUp(self):
-        self.ui = ui()
+        self.ui = UserInterface()
 
     @patch(method_patch, return_value="w")
     def test_answer_w(self, input):

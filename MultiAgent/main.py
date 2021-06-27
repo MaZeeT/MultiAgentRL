@@ -1,16 +1,16 @@
 import case
-from ui import ui
+from ui import UserInterface
 
 print("this is the main")
 c = case.AgentMovementCase()
-gui = ui()
+ui = UserInterface()
 
-gui.render_field(c.field)
+ui.render_field(c.field)
 
 print("call entity_field")
 field = case.entity_field(c.field)
 print(field)
-gui.render_field(field)
+ui.render_field(field)
 test = field[1][1]
 print(type(test))
 print("end of main")
