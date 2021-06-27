@@ -30,6 +30,7 @@ class BaseCase(gym.Env):
     def __init__(self, x, y):
         self.width = x
         self.height = y
+        self.field = [[0 for i in range(self.height)] for j in range(self.width)]
         self.entities = []
 
     def edge_walls(self):
@@ -40,19 +41,27 @@ class BaseCase(gym.Env):
 
         # fill top
         for x in range(left_x, right_x + 1):
-            self.entities.append(Wall(x, top_y))
+            w = Wall(x, top_y)
+            self.add_entity(w)
 
         # fill bottom
         for x in range(left_x, right_x + 1):
-            self.entities.append(Wall(x, bottom_y))
+            w = Wall(x, bottom_y)
+            self.add_entity(w)
 
         # fill left side
         for y in range(top_y + 1, bottom_y):
-            self.entities.append(Wall(left_x, y))
+            w = Wall(left_x, y)
+            self.add_entity(w)
 
         # fill right side
         for y in range(top_y + 1, bottom_y):
-            self.entities.append(Wall(right_x, y))
+            w = Wall(right_x, y)
+            self.add_entity(w)
+
+    def add_entity(self, entity):
+        self.entities.append(entity)
+        self.field[entity.x][entity.y] = entity
 
     def grid_print(self, array):
         for x in array:  # outer loop
@@ -61,12 +70,10 @@ class BaseCase(gym.Env):
             print()
 
     def print_field(self):
-        field = [[0 for i in range(self.height)] for j in range(self.width)]
-
-        for entity in self.entities:
-            field[entity.x][entity.y] = entity.id
-
-        self.grid_print(field)
+        for row in self.field:
+            #    #separator = 'x'
+            #    #print(separator.join(str(row)))
+            print(row)
 
     def print_entities(self):
         for entity in self.entities:
@@ -88,8 +95,8 @@ class BasicTestCase(BaseCase):
         a = Agent(2, 3)
         b = Agent(6, 3)
 
-        self.entities.append(a)
-        self.entities.append(b)
+        self.add_entity(a)
+        self.add_entity(b)
 
         self.agents.append(a)
         self.agents.append(b)
@@ -101,8 +108,8 @@ class BasicTestCase(BaseCase):
                     g_a = Gate(4, i, entity)
                     g_b = Gate(8, i, entity)
 
-                    self.entities.append(g_a)
-                    self.entities.append(g_b)
+                    self.add_entity(g_a)
+                    self.add_entity(g_b)
 
                     self.interactables.append(g_a)
                     self.interactables.append(g_b)
@@ -110,8 +117,8 @@ class BasicTestCase(BaseCase):
     def add_goal(self):
         for entity in self.entities:
             if isinstance(entity, Agent):
-                self.entities.append(Goal(10, 2, entity))
-                self.entities.append(Goal(10, 4, entity))
+                self.add_entity(Goal(10, 2, entity))
+                self.add_entity(Goal(10, 4, entity))
 
 
 class CaseLinearPath(BaseCase):
@@ -127,14 +134,14 @@ class CaseLinearPath(BaseCase):
 
     def add_walls(self):
         for i in range(1, 11):
-            self.entities.append(Wall(6, i))
+            self.add_entity(Wall(6, i))
 
     def add_agents(self):
-        self.entities.append(Agent(2, 2))
-        self.entities.append(Agent(4, 2))
-        self.entities.append(Agent(3, 4))
+        self.add_entity(Agent(2, 2))
+        self.add_entity(Agent(4, 2))
+        self.add_entity(Agent(3, 4))
 
-        self.entities.append(Agent(3, 8))
+        self.add_entity(Agent(3, 8))
 
     def add_gates(self):
         for entity in self.entities:
@@ -163,9 +170,9 @@ class CaseLinearPath(BaseCase):
                 self.entities.append(Gate(10, 10, entity))
                 self.entities.append(Gate(11, 10, entity))
 
-                self.entities.append(Gate(7,  4, entity))
-                self.entities.append(Gate(8,  4, entity))
-                self.entities.append(Gate(9,  4, entity))
+                self.entities.append(Gate(7, 4, entity))
+                self.entities.append(Gate(8, 4, entity))
+                self.entities.append(Gate(9, 4, entity))
                 self.entities.append(Gate(10, 4, entity))
                 self.entities.append(Gate(11, 4, entity))
 
@@ -174,6 +181,7 @@ class CaseLinearPath(BaseCase):
             if isinstance(entity, Agent):
                 self.entities.append(Goal(9, 7, entity))
                 self.entities.append(Goal(10, 14, entity))
+
 
 class HoldTheDoorCase(BaseCase):
     def __init__(self):
@@ -240,5 +248,26 @@ class HoldTheDoorCase(BaseCase):
                 self.entities.append(Goal(19, 14, entity))
 
 
-case = BasicTestCase()
+class DevTestCase(BaseCase):
+    template = [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    ]
+
+    def __init__(self):
+        x = len(self.template[0])
+        y = len(self.template)
+        super().__init__(x, y)
+
+    def populate_field(self):
+        for y in range(self.height):
+            for x in range(self.width):
+                if self.template[x][y] == 1:
+                    self.field[x][y] = Wall(x, y)
+
+
+case = DevTestCase()
 case.print_field()
