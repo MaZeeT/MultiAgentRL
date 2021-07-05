@@ -1,5 +1,3 @@
-
-
 class UserInterface:
     def __init__(self):
         pass
@@ -22,3 +20,9 @@ class UserInterface:
             "d": "right",
         }
         return d[self.get_input()]
+
+
+def render_field(field):
+    for row in field:
+        print(row)
+    print("\n")

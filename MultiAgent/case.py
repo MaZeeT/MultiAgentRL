@@ -29,7 +29,6 @@ class AgentMovementCase:
 def entity_field(field):
     x = len(field[0])
     y = len(field)
-    print(str(x) + ", " + str(y))
     for j in range(0, y):
         for i in range(0, x):
             if field[i][j] == 0:
