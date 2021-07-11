@@ -8,7 +8,24 @@ d = {
 }
 
 
+def move_agent_in_list(entities, agent, direction):
+    new_position = agent.check_next_move(direction)
+    if not is_occupied(entities, new_position):
+        agent.move(direction)
+        return True
+    else:
+        return False
+
+
+def is_occupied(entity_set, position):
+    for entity in entity_set:
+        if entity.x == position[0] and entity.y == position[1]:
+            return True
+    return False
+
+
 def move_agent(field, agent, direction):
+    # array based
     valid_move = is_move_valid(field, agent, direction)
     print("pre-position, x:" + str(agent.x) + ", y:" + str(agent.y) + ", Valid move:" + str(
         valid_move))

@@ -3,7 +3,7 @@ from unittest.mock import patch
 from MultiAgent.ui import UserInterface
 
 
-class Test_Input(TestCase):
+class TestInput(TestCase):
     method_patch = 'MultiAgent.ui.UserInterface.get_input'
 
     def setUp(self):
