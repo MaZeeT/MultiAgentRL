@@ -34,6 +34,8 @@ class TestObjectLogic(TestCase):
         entity_set.append(agent)
         result = logic.move_agent_in_list(entity_set, agent, "left")
         self.assertTrue(result)
+        self.assertEqual(agent.x, -1)
+        self.assertEqual(agent.y, 1)
 
     def test_move_agent_occupied(self):
         entity_set = [
@@ -44,6 +46,8 @@ class TestObjectLogic(TestCase):
         entity_set.append(agent)
         result = logic.move_agent_in_list(entity_set, agent, "down")
         self.assertFalse(result)
+        self.assertEqual(agent.x, 0)
+        self.assertEqual(agent.y, 1)
 
 
 class TestArrayLogic(TestCase):
