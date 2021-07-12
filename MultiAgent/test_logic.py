@@ -104,6 +104,19 @@ class TestObjectLogic(TestCase):
         entity = logic.get_entity_by_position(2, 1, entity_set)
         self.assertIsNone(entity)
 
+    def test_count_activated_entities(self):
+        agent = entities.Agent(2, 2)
+        entity_set = [
+            entities.Goal(0, 0), entities.Wall(0, 1), entities.Wall(0, 2), entities.Goal(0, 3),
+            entities.Wall(1, 0), entities.Wall(1, 1), entities.Wall(1, 2), entities.Goal(1, 3),
+            entities.Wall(2, 0), entities.Wall(2, 1), agent, entities.Goal(2, 3),
+            entities.Wall(3, 0), entities.Wall(3, 1), entities.Wall(3, 2), entities.Wall(3, 3),
+        ]
+        logic.interact_with_surroundings(agent, entity_set)
+        result = logic.count_activated_entities(entity_set)
+        expect = 2
+        self.assertEqual(result, expect)
+
 
 class TestArrayLogic(TestCase):
     def setUp(self):

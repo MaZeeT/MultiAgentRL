@@ -55,6 +55,15 @@ def is_occupied(entity_set, position):
     return False
 
 
+def count_activated_entities(entity_set):
+    count = 0
+    for entity in entity_set:
+        if isinstance(entity, entities.InteractiveEntity):
+            if entity.activated is True:
+                count += 1
+    return count
+
+
 def move_agent(field, agent, direction):
     # array based
     valid_move = is_move_valid(field, agent, direction)

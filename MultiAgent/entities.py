@@ -15,6 +15,8 @@ class Entity(abc.ABC):
 
 
 class InteractiveEntity(Entity):
+    activated = False
+
     @abc.abstractmethod
     def activate(self, actor):
         pass
@@ -59,7 +61,6 @@ class Goal(InteractiveEntity):
     def __init__(self, x, y, interactive_with_group_id=0):
         super().__init__(x, y)
         self.id = 5
-        self.activated = False
         self.group_id = interactive_with_group_id
 
     def activate(self, actor):
