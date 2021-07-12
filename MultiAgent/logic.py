@@ -9,6 +9,7 @@ d = {
 
 
 def interact_with_surroundings(agent, entity_set):
+    entity_set = entities.EntitySet(entity_set)
     has_interacted = False
     subset = get_nearby_entities(agent, entity_set)
     for entity in subset:
@@ -26,17 +27,10 @@ def get_nearby_entities(agent, entity_set):
     # since range() is excluding the stop arg, +1 is added to include the stop arg
     for y_position in range(y - agent_range, y + agent_range + 1):
         for x_position in range(x - agent_range, x + agent_range + 1):
-            entity = get_entity_by_position(x_position, y_position, entity_set)
+            entity = entity_set.get_entity_by_position(x_position, y_position)
             if entity is not None:
                 subset.append(entity)
     return subset
-
-
-def get_entity_by_position(x, y, entity_set):
-    for entity in entity_set:
-        if entity.x == x and entity.y == y:
-            return entity
-    return None
 
 
 def move_agent_in_list(entity_set, agent, direction):
@@ -64,6 +58,18 @@ def count_activated_entities(entity_set):
     return count
 
 
+def count_goals(entity_set, only_activated=True):
+    count = 0
+    for entity in entity_set:
+        if isinstance(entity, entities.Goal):
+            if only_activated:
+                if entity.activated:
+                    count += 1
+            else:
+                count += 1
+    return count
+
+
 def move_agent(field, agent, direction):
     # array based
     valid_move = is_move_valid(field, agent, direction)
@@ -81,6 +87,7 @@ def move_agent(field, agent, direction):
 
 
 def is_move_valid(field, agent, direction):
+    # array based
     i, j = d[direction]
     x, y = agent.x, agent.y
     return field[x + i][y + j].id == 0

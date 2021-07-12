@@ -90,20 +90,6 @@ class TestObjectLogic(TestCase):
         result = logic.interact_with_surroundings(agent, entity_set)
         self.assertTrue(result)
 
-    def test_get_entity_by_correct_position(self):
-        x, y = 2, 3
-        entity_set = [entities.Wall(x, y)]
-        entity = logic.get_entity_by_position(x, y, entity_set)
-        self.assertIsNotNone(entity)
-        self.assertEqual(x, entity.x)
-        self.assertEqual(y, entity.y)
-
-    def test_get_entity_by_wrong_position(self):
-        x, y = 8, 2
-        entity_set = [entities.Wall(x, y)]
-        entity = logic.get_entity_by_position(2, 1, entity_set)
-        self.assertIsNone(entity)
-
     def test_count_activated_entities(self):
         agent = entities.Agent(2, 2)
         entity_set = [
@@ -114,6 +100,30 @@ class TestObjectLogic(TestCase):
         ]
         logic.interact_with_surroundings(agent, entity_set)
         result = logic.count_activated_entities(entity_set)
+        expect = 2
+        self.assertEqual(result, expect)
+
+    def test_count_total_goals(self):
+        entity_set = [
+            entities.Goal(0, 0), entities.Wall(0, 1), entities.Wall(0, 2), entities.Goal(0, 3),
+            entities.Wall(1, 0), entities.Wall(1, 1), entities.Wall(1, 2), entities.Goal(1, 3),
+            entities.Wall(2, 0), entities.Wall(2, 1), entities.Goal(2, 2), entities.Goal(2, 3),
+            entities.Wall(3, 0), entities.Wall(3, 1), entities.Wall(3, 2), entities.Wall(3, 3),
+        ]
+        result = logic.count_goals(entity_set, only_activated=False)
+        expect = 5
+        self.assertEqual(result, expect)
+
+    def test_count_activated_goals(self):
+        agent = entities.Agent(2, 2)
+        entity_set = [
+            entities.Goal(0, 0), entities.Wall(0, 1), entities.Wall(0, 2), entities.Goal(0, 3),
+            entities.Wall(1, 0), entities.Wall(1, 1), entities.Wall(1, 2), entities.Goal(1, 3),
+            entities.Wall(2, 0), entities.Wall(2, 1), agent, entities.Goal(2, 3),
+            entities.Wall(3, 0), entities.Wall(3, 1), entities.Wall(3, 2), entities.Wall(3, 3),
+        ]
+        logic.interact_with_surroundings(agent, entity_set)
+        result = logic.count_goals(entity_set, only_activated=True)
         expect = 2
         self.assertEqual(result, expect)
 

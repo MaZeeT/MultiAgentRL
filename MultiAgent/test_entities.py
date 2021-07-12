@@ -1,8 +1,57 @@
-import builtins
-from unittest import skip
 from unittest import TestCase
 from unittest.mock import patch
 import entities
+
+
+class TestEntitySet(TestCase):
+    def setUp(self):
+        self.agent = entities.Agent(2, 2)
+        self.raw_entity_set = [
+            entities.Goal(0, 0), entities.Wall(0, 1), entities.Wall(0, 2), entities.Goal(0, 3),
+            entities.Wall(1, 0), entities.Wall(1, 1), entities.Wall(1, 2), entities.Goal(1, 3),
+            entities.Wall(2, 0), entities.Wall(2, 1), self.agent, entities.Goal(2, 3),
+            entities.Wall(3, 0), entities.Wall(3, 1), entities.Wall(3, 2), entities.Wall(3, 3),
+        ]
+        self.entity_set = entities.EntitySet(self.raw_entity_set)
+
+    def test_max_x(self):
+        result = self.entity_set.x_max
+        expect = 3
+        self.assertEqual(expect, result)
+
+    def test_max_y(self):
+        result = self.entity_set.y_max
+        expect = 3
+        self.assertEqual(expect, result)
+
+    def test_min_x(self):
+        result = self.entity_set.x_min
+        expect = 0
+        self.assertEqual(expect, result)
+
+    def test_min_y(self):
+        result = self.entity_set.y_min
+        expect = 0
+        self.assertEqual(expect, result)
+
+    def test_get_raw_set(self):
+        result = self.entity_set.get_raw_set()
+        expect = self.raw_entity_set
+        self.assertEqual(expect, result)
+
+    def test_get_entity_by_correct_position(self):
+        x, y = 2, 3
+        entity_set = entities.EntitySet([entities.Wall(x, y)])
+        entity = entity_set.get_entity_by_position(x, y)
+        self.assertIsNotNone(entity)
+        self.assertEqual(x, entity.x)
+        self.assertEqual(y, entity.y)
+
+    def test_get_entity_by_wrong_position(self):
+        x, y = 8, 2
+        entity_set = entities.EntitySet([entities.Wall(x, y)])
+        entity = entity_set.get_entity_by_position(2, 1)
+        self.assertIsNone(entity)
 
 
 class TestEntities(TestCase):

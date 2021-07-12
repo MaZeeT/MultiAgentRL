@@ -1,3 +1,7 @@
+def print_entity_set(entity_set):
+    pass
+
+
 class UserInterface:
     def __init__(self):
         pass
