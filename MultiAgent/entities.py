@@ -69,6 +69,19 @@ class EntitySet:
                     has_interacted = True
         return has_interacted
 
+    def get_empty_array(self):
+        #todo this should be refactored and tested
+        field = [[EmptySpace(i, j) for i in range(self.x_max + 1)] for j in range(self.y_max + 1)]
+        return field
+
+    def get_array(self):
+        # todo this should be refactored and tested
+        field = self.get_empty_array()
+        for entity in self.entity_set:
+            x, y = entity.x, entity.y
+            field[x][y] = entity
+        return field
+
 
 class Entity(abc.ABC):
     def __init__(self, x, y):

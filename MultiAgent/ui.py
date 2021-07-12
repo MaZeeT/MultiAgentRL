@@ -1,5 +1,8 @@
 def print_entity_set(entity_set):
-    pass
+    for column in range(entity_set.max_x):
+        for row in range(entity_set.max_y):
+            pass
+
 
 
 class UserInterface:
