@@ -1,4 +1,7 @@
-class Entity:
+import abc
+
+
+class Entity(abc.ABC):
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -9,6 +12,12 @@ class Entity:
 
     def __repr__(self):
         return str(self)
+
+
+class InteractiveEntity(Entity):
+    @abc.abstractmethod
+    def activate(self, actor):
+        pass
 
 
 class Agent(Entity):
@@ -46,13 +55,14 @@ class Wall(Entity):
         self.id = 1
 
 
-class Goal(Entity):
-    def __init__(self, x, y, target=0):
+class Goal(InteractiveEntity):
+    def __init__(self, x, y, interactive_with_group_id=0):
         super().__init__(x, y)
+        self.id = 5
         self.activated = False
-        self.target = target
+        self.group_id = interactive_with_group_id
 
     def activate(self, actor):
-        if actor == self.target:
+        if actor == self.group_id:
             self.activated = True
         return self.activated

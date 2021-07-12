@@ -8,9 +8,40 @@ d = {
 }
 
 
-def move_agent_in_list(entities, agent, direction):
+def interact_with_surroundings(agent, entity_set):
+    has_interacted = False
+    subset = get_nearby_entities(agent, entity_set)
+    for entity in subset:
+        if isinstance(entity, entities.InteractiveEntity):
+            response = entity.activate(agent.group_id)
+            if response is True:
+                has_interacted = True
+    return has_interacted
+
+
+def get_nearby_entities(agent, entity_set):
+    agent_range = 1
+    subset = []
+    x, y = agent.x, agent.y
+    # since range() is excluding the stop arg, +1 is added to include the stop arg
+    for y_position in range(y - agent_range, y + agent_range + 1):
+        for x_position in range(x - agent_range, x + agent_range + 1):
+            entity = get_entity_by_position(x_position, y_position, entity_set)
+            if entity is not None:
+                subset.append(entity)
+    return subset
+
+
+def get_entity_by_position(x, y, entity_set):
+    for entity in entity_set:
+        if entity.x == x and entity.y == y:
+            return entity
+    return None
+
+
+def move_agent_in_list(entity_set, agent, direction):
     new_position = agent.check_next_move(direction)
-    if not is_occupied(entities, new_position):
+    if not is_occupied(entity_set, new_position):
         agent.move(direction)
         return True
     else:

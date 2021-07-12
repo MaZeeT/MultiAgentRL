@@ -1,3 +1,4 @@
+import builtins
 from unittest import skip
 from unittest import TestCase
 from unittest.mock import patch
@@ -67,14 +68,14 @@ class TestEntities(TestCase):
     def test_agent_activate_goal_True(self):
         test_group_id = 42
         agent = entities.Agent(2, 3, group_id=test_group_id)
-        goal = entities.Goal(3, 3, target=test_group_id)
+        goal = entities.Goal(3, 3, interactive_with_group_id=test_group_id)
 
         result = goal.activate(agent.group_id)
         self.assertTrue(result)
 
     def test_agent_activate_goal_False(self):
         agent = entities.Agent(2, 3, group_id=5)
-        goal = entities.Goal(3, 3, target=7)
+        goal = entities.Goal(3, 3, interactive_with_group_id=7)
 
         result = goal.activate(agent.group_id)
         self.assertFalse(result)
@@ -159,3 +160,24 @@ class TestAgent(TestCase):
         self.assertEqual(y, 3)
         self.assertEqual(agent.x, 3)
         self.assertEqual(agent.y, 3)
+
+
+class TestInteractiveEntities(TestCase):
+    def test_interactive_interface_type_True(self):
+        test_entity = entities.Goal(2, 2)
+
+        result = isinstance(test_entity, entities.InteractiveEntity)
+        self.assertTrue(result)
+
+    def test_interactive_interface_type_False(self):
+        test_entity = entities.Wall(2, 2)
+
+        result = isinstance(test_entity, entities.InteractiveEntity)
+        self.assertFalse(result)
+
+    def test_action_between_agent_and_goal_true(self):
+        agent = entities.Agent(2, 2)
+        goal = entities.Goal(6, 7)
+
+        result = goal.activate(agent.group_id)
+        self.assertTrue(result)
