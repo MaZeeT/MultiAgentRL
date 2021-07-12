@@ -1,7 +1,8 @@
 def print_entity_set(entity_set):
-    for column in range(entity_set.max_x):
-        for row in range(entity_set.max_y):
-            pass
+    #for column in range(entity_set.max_y):
+    #    for row in range(entity_set.max_x):
+    #        pass
+    render_field(entity_set.get_array())
 
 
 
