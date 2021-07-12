@@ -8,64 +8,20 @@ d = {
 }
 
 
-def interact_with_surroundings(agent, entity_set):
-    entity_set = entities.EntitySet(entity_set)
-    has_interacted = False
-    subset = get_nearby_entities(agent, entity_set)
-    for entity in subset:
-        if isinstance(entity, entities.InteractiveEntity):
-            response = entity.activate(agent.group_id)
-            if response is True:
-                has_interacted = True
-    return has_interacted
-
-
-def get_nearby_entities(agent, entity_set):
-    agent_range = 1
-    subset = []
-    x, y = agent.x, agent.y
-    # since range() is excluding the stop arg, +1 is added to include the stop arg
-    for y_position in range(y - agent_range, y + agent_range + 1):
-        for x_position in range(x - agent_range, x + agent_range + 1):
-            entity = entity_set.get_entity_by_position(x_position, y_position)
-            if entity is not None:
-                subset.append(entity)
-    return subset
-
-
 def move_agent_in_list(entity_set, agent, direction):
     new_position = agent.check_next_move(direction)
-    if not is_occupied(entity_set, new_position):
+    if not entity_set.is_occupied(new_position):
         agent.move(direction)
         return True
     else:
         return False
 
 
-def is_occupied(entity_set, position):
-    for entity in entity_set:
-        if entity.x == position[0] and entity.y == position[1]:
-            return True
-    return False
-
-
 def count_activated_entities(entity_set):
     count = 0
-    for entity in entity_set:
+    for entity in entity_set.get_raw_set():
         if isinstance(entity, entities.InteractiveEntity):
             if entity.activated is True:
-                count += 1
-    return count
-
-
-def count_goals(entity_set, only_activated=True):
-    count = 0
-    for entity in entity_set:
-        if isinstance(entity, entities.Goal):
-            if only_activated:
-                if entity.activated:
-                    count += 1
-            else:
                 count += 1
     return count
 

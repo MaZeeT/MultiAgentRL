@@ -15,6 +15,9 @@ class EntitySet:
             if entity.y > y_max: y_max = entity.y
         return x_min, y_min, x_max, y_max
 
+    def update_stats(self):
+        self.x_min, self.y_min, self.x_max, self.y_max = self.get_stats()
+
     def get_raw_set(self):
         return self.entity_set
 
@@ -23,6 +26,49 @@ class EntitySet:
             if entity.x == x and entity.y == y:
                 return entity
         return None
+
+    def get_nearby_entities(self, agent, agent_range=1):
+        subset = []
+        x, y = agent.x, agent.y
+        # since range() is excluding the stop arg, +1 is added to include the stop arg
+        for y_position in range(y - agent_range, y + agent_range + 1):
+            for x_position in range(x - agent_range, x + agent_range + 1):
+                entity = self.get_entity_by_position(x_position, y_position)
+                if entity is not None:
+                    subset.append(entity)
+        return subset
+
+    def append(self, entity):
+        self.entity_set.append(entity)
+        self.update_stats()
+
+    def is_occupied(self, position):
+        for entity in self.entity_set:
+            if entity.x == position[0] and entity.y == position[1]:
+                return True
+        return False
+
+    def count_goals(self, only_activated=True):
+        count = 0
+        for entity in self.entity_set:
+            if isinstance(entity, Goal):
+                if only_activated:
+                    if entity.activated:
+                        count += 1
+                else:
+                    count += 1
+        return count
+
+    def interact_with_surroundings(self, agent):
+        has_interacted = False
+        subset = self.get_nearby_entities(agent)
+        for entity in subset:
+            if isinstance(entity, InteractiveEntity):
+                response = entity.activate(agent.group_id)
+                if response is True:
+                    has_interacted = True
+        return has_interacted
+
 
 class Entity(abc.ABC):
     def __init__(self, x, y):

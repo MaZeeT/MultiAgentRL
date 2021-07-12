@@ -1,6 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 import entities
+from MultiAgent import logic
 
 
 class TestEntitySet(TestCase):
@@ -52,6 +53,76 @@ class TestEntitySet(TestCase):
         entity_set = entities.EntitySet([entities.Wall(x, y)])
         entity = entity_set.get_entity_by_position(2, 1)
         self.assertIsNone(entity)
+
+    def test_is_occupied_false(self):
+        entity_set = entities.EntitySet([
+            entities.Agent(3, 3),
+            entities.Wall(0, 0)
+        ])
+        position = 5, 9
+        result = entity_set.is_occupied(position)
+        self.assertFalse(result)
+
+    def test_is_occupied_true(self):
+        entity_set = entities.EntitySet([
+            entities.Agent(3, 3),
+            entities.Wall(0, 0)
+        ])
+        position = 3, 3
+        result = entity_set.is_occupied(position)
+        self.assertTrue(result)
+
+    def test_count_total_goals(self):
+        result = self.entity_set.count_goals(only_activated=False)
+        expect = 4
+        self.assertEqual(result, expect)
+
+    def test_count_activated_goals(self):
+        self.entity_set.interact_with_surroundings(self.agent)
+
+        result = self.entity_set.count_goals(only_activated=True)
+        expect = 2
+        self.assertEqual(result, expect)
+
+    def test_agent_interact_with_two(self):
+        agent = entities.Agent(1, 1)
+        entity_set = entities.EntitySet([
+            entities.Goal(0, 0), entities.Wall(0, 1), entities.Wall(0, 2),
+            entities.Wall(1, 0), agent, entities.Goal(1, 2),
+            entities.Wall(2, 0), entities.Wall(2, 1), entities.Wall(2, 2),
+        ])
+        result = entity_set.interact_with_surroundings(agent)
+        self.assertTrue(result)
+
+    def test_agent_interact_with_non(self):
+        agent = entities.Agent(1, 1)
+        entity_set = entities.EntitySet([
+            entities.Wall(0, 0), entities.Wall(0, 1), entities.Wall(0, 2),
+            entities.Wall(1, 0), agent, entities.Wall(1, 2),
+            entities.Wall(2, 0), entities.Wall(2, 1), entities.Wall(2, 2),
+        ])
+        result = entity_set.interact_with_surroundings(agent)
+        self.assertFalse(result)
+
+    def test_agent_interact_with_non_nearby(self):
+        agent = entities.Agent(1, 1)
+        entity_set = entities.EntitySet([
+            entities.Wall(0, 0), entities.Wall(0, 1), entities.Wall(0, 2), entities.Goal(0, 3),
+            entities.Wall(1, 0), agent, entities.Wall(1, 2), entities.Goal(1, 3),
+            entities.Wall(2, 0), entities.Wall(2, 1), entities.Wall(2, 2), entities.Goal(2, 3),
+        ])
+        result = entity_set.interact_with_surroundings(agent)
+        self.assertFalse(result)
+
+    def test_agent_interact_with_one_nearby(self):
+        result = self.entity_set.interact_with_surroundings(self.agent)
+        self.assertTrue(result)
+
+    def test_count_activated_entities(self):
+        self.entity_set.interact_with_surroundings(self.agent)
+        result = logic.count_activated_entities(self.entity_set)
+        expect = 2
+        self.assertEqual(result, expect)
 
 
 class TestEntities(TestCase):
