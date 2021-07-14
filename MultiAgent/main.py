@@ -14,8 +14,10 @@ env = gym_environment.GymEnvironment()
 counter = 0
 isRunning = True
 while isRunning:
-    direction = gui.get_direction()
-    observation, reward, done, info = env.step([direction])
+    direc = []
+    for agent in agents:
+        direc.append(gui.get_direction())
+    observation, reward, done, info = env.step(direc)
     counter += 1
     print("Moves taken:" + str(counter))
     print_entity_set(observation)

@@ -2,16 +2,16 @@ import gym
 import numpy as np
 import case
 import logic
-
+from baselines.ppo2 import ppo2
 from ui import UserInterface
 
 
 class GymEnvironment(gym.Env):
     def __init__(self):
-        self.agents, self.case = case.get_case_two()
-        width = self.case.x_max - self.case.x_min
-        height = self.case.y_max - self.case.y_min
-        lowest_id, highest_id = self.case.get_lowest_and_highest_id()
+        self.agents, self.entity_set = case.get_case_two()
+        width = self.entity_set.x_max - self.entity_set.x_min
+        height = self.entity_set.y_max - self.entity_set.y_min
+        lowest_id, highest_id = self.entity_set.get_lowest_and_highest_id()
         num_actions = len(self.options)
         self.num_of_agents = len(self.agents)
         self.action_space = gym.spaces.Discrete(num_actions)
@@ -30,30 +30,25 @@ class GymEnvironment(gym.Env):
 
     def step(self, actions):
         for i in range(self.num_of_agents):
-            print(str(i))
-            print(str(actions[i]))
             action = self.options[actions[i]]
-            print(str(action))
             if action == "action":
-                self.case.interact_with_surroundings(self.agents[i])
+                self.entity_set.interact_with_surroundings(self.agents[i])
             else:
-                logic.move_agent_in_list(self.case, self.agents[i], action)
-        pass
-        observation = self.case.get_array()
+                logic.move_agent_in_list(self.entity_set, self.agents[i], action)
+        observation = self.entity_set
         reward = 0
-        done = self.check_if_done(self.case)
+        done = self.check_if_done(self.entity_set)
         info = {}
         return observation, reward, done, info
 
     def reset(self):
-        self.agents, self.case = case.get_case()
-        observation = self.case.get_array()
+        self.agents, self.entity_set = case.get_case_two()
+        observation = self.entity_set
         return observation
 
     def render(self, mode='human'):
         gui = UserInterface()
-        gui.render_field(self.case.get_array())
-        pass
+        gui.render_field(self.entity_set)
 
     def check_if_done(self, entity_set):
         return entity_set.count_goals(only_activated=True) == entity_set.count_goals(only_activated=False)
