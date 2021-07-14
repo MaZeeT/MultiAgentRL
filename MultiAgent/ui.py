@@ -22,10 +22,11 @@ class UserInterface:
 
     def get_direction(self):
         d = {
-            "w": "up",
-            "a": "left",
-            "s": "down",
-            "d": "right",
+            "w": 0,  # up
+            "a": 1,  # left
+            "s": 2,  # down
+            "d": 3,  # right
+            " ": 4,  # action
         }
         return d[self.get_input()]
 

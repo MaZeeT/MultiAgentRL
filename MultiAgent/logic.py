@@ -1,12 +1,5 @@
 import entities
 
-d = {
-    "up": (0, -1),
-    "down": (0, 1),
-    "left": (-1, 0),
-    "right": (1, 0),
-}
-
 
 def move_agent_in_list(entity_set, agent, direction):
     new_position = agent.check_next_move(direction)
@@ -24,4 +17,6 @@ def count_activated_entities(entity_set):
             if entity.activated is True:
                 count += 1
     return count
+
+
 

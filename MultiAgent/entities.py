@@ -15,6 +15,13 @@ class EntitySet:
             if entity.y > y_max: y_max = entity.y
         return x_min, y_min, x_max, y_max
 
+    def get_lowest_and_highest_id(self):
+        id_range = []
+        for entity in self.entity_set:
+            id_range.append(entity.id)
+        id_range.sort()
+        return id_range[0], id_range[-1]
+
     def update_stats(self):
         self.x_min, self.y_min, self.x_max, self.y_max = self.get_stats()
 
@@ -70,8 +77,8 @@ class EntitySet:
         return has_interacted
 
     def get_empty_array(self):
-        #todo this should be refactored and tested
-        field = [[EmptySpace(i, j) for i in range(self.x_max + 1)] for j in range(self.y_max + 1)]
+        # todo this should be refactored and tested
+        field = [[EmptySpace(j, i) for i in range(self.y_max + 1)] for j in range(self.x_max + 1)]
         return field
 
     def get_array(self):
