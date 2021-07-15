@@ -2,7 +2,6 @@ import gym
 import numpy as np
 import case
 import logic
-from baselines.ppo2 import ppo2
 from ui import UserInterface
 
 
@@ -35,7 +34,7 @@ class GymEnvironment(gym.Env):
                 self.entity_set.interact_with_surroundings(self.agents[i])
             else:
                 logic.move_agent_in_list(self.entity_set, self.agents[i], action)
-        observation = self.entity_set
+        observation = self.entity_set.get_int_array()
         reward = 0
         done = self.check_if_done(self.entity_set)
         info = {}
@@ -43,7 +42,7 @@ class GymEnvironment(gym.Env):
 
     def reset(self):
         self.agents, self.entity_set = case.get_case_two()
-        observation = self.entity_set
+        observation = self.entity_set.get_int_array()
         return observation
 
     def render(self, mode='human'):

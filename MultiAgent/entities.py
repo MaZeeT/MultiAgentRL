@@ -1,5 +1,7 @@
 import abc
 
+import numpy as np
+
 
 class EntitySet:
     def __init__(self, entity_set):
@@ -87,6 +89,14 @@ class EntitySet:
         for entity in self.entity_set:
             x, y = entity.x, entity.y
             field[x][y] = entity
+        return field
+
+    def get_int_array(self):
+        shape = (self.x_max+1, self.y_max+1)
+        field = np.zeros(shape)
+        for entity in self.entity_set:
+            x, y = entity.x, entity.y
+            field[x][y] = entity.id
         return field
 
 
