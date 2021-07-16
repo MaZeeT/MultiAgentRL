@@ -5,7 +5,6 @@ def print_entity_set(entity_set):
     render_field(entity_set.get_array())
 
 
-
 class UserInterface:
     def __init__(self):
         pass

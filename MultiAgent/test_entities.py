@@ -127,7 +127,7 @@ class TestEntitySet(TestCase):
         self.assertEqual(result, expect)
 
     def test_something(self):
-        #todo fix this.... this is not a proper test and just somewhere to run code...
+        # todo fix this.... this is not a proper test and just somewhere to run code...
         test_set = self.entity_set.get_array()
         print(str(test_set))
         MultiAgent.ui.render_field(field=test_set)
