@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 import os
+import tf_agents
 
 #import MultiAgent.gym_environment
 import gym_environment

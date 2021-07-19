@@ -34,7 +34,7 @@ class GymEnvironment(gym.Env):
                 self.entity_set.interact_with_surroundings(self.agents[i])
             else:
                 logic.move_agent_in_list(self.entity_set, self.agents[i], action)
-        observation = self.entity_set.get_int_array()
+        observation = self.entity_set
         reward = 0
         done = self.check_if_done(self.entity_set)
         info = {}
@@ -42,7 +42,7 @@ class GymEnvironment(gym.Env):
 
     def reset(self):
         self.agents, self.entity_set = case.get_case_two()
-        observation = self.entity_set.get_int_array()
+        observation = self.entity_set
         return observation
 
     def render(self, mode='human'):

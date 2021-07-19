@@ -1,45 +1,25 @@
-import abc
 import tensorflow
 from tensorflow import keras
-from keras.layers import Flatten, Dense, Input
-from keras.models import Sequential
+from tensorflow.keras import layers
+import tf_agents
 
-class Base(abc):
-    def __init__(self, my_agent, environment):
-        self.my_agent = my_agent
-        self.environment = environment
-
-    def model(self, shape, actions):
-        #shape = (1, 6, 4)
-        model = Sequential()
-        model.add(Flatten(input_shape=shape, batch_size=1))
-        model.add(Dense(24, activation="relu"))
-        model.add(Dense(24, activation="relu"))
-        model.add(Dense(24, activation="relu"))
-        model.add(Dense(actions, activation="linear"))
-        return model
+shape = (1, 1)
+num_of_actions = 4
 
 
 
-    def predict(self):
-        pass
-        # prediction = None
-        # return prediction
+num_hidden = 128
 
+inputs = layers.Input(batch_input_shape=shape)
+flat = layers.Flatten()(inputs)
+common = layers.Dense(num_hidden, activation="relu")(flat)
+action = layers.Dense(num_of_actions, activation="softmax")(common)
+critic = layers.Dense(1)(common)
+model = keras.Model(inputs=inputs, outputs=[action, critic])
+print(model)
+actor_network, critic_network = model
 
-class ActorCritic(abc):
-    def __init__(self, my_agent, environment):
-        pass
+sac_agent = tf_agents.agents.SacAgent(actor_network=actor_network, critic_network=critic_network)
+sac_agent.initialize()
 
-    def actor_model(self):
-        num_hidden = 128
-
-        inputs = Input(batch_input_shape=self.input_shape)
-        flat = Flatten()(inputs)
-        common = Dense(num_hidden, activation="relu")(flat)
-        action = Dense(self.num_actions, activation="softmax")(common)
-        critic = Dense(1)(common)
-        return keras.Model(inputs=inputs, outputs=[action, critic])
-
-    def predict(self):
-        pass
+print(str(sac_agent))
