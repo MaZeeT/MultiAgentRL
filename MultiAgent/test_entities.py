@@ -1,9 +1,8 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-import MultiAgent.ui
 import entities
-from MultiAgent import logic
+import logic
 
 
 class TestEntitySet(TestCase):
@@ -125,12 +124,6 @@ class TestEntitySet(TestCase):
         result = logic.count_activated_entities(self.entity_set)
         expect = 2
         self.assertEqual(result, expect)
-
-    def test_something(self):
-        # todo fix this.... this is not a proper test and just somewhere to run code...
-        test_set = self.entity_set.get_array()
-        print(str(test_set))
-        MultiAgent.ui.render_field(field=test_set)
 
 
 class TestEntities(TestCase):

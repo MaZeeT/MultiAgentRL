@@ -1,10 +1,8 @@
 from unittest import TestCase
 from unittest.mock import patch
-import logic
-import case
-import entities
-import ui
 
+import entities
+import logic
 
 class TestObjectLogic(TestCase):
 
@@ -31,4 +29,3 @@ class TestObjectLogic(TestCase):
         self.assertFalse(result)
         self.assertEqual(agent.x, 0)
         self.assertEqual(agent.y, 1)
-
