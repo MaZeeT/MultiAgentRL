@@ -1,14 +1,15 @@
-#import pybullet_envs
-import gym
 import numpy as np
+
+from gym_environment import GymEnvironment
 from sac_tf2 import Agent
 from utils import plot_learning_curve
-from gym import wrappers
 
 if __name__ == '__main__':
-    env = gym.make('InvertedPendulumBulletEnv-v0')
+    env = GymEnvironment()
+    print(env.action_space.n)
+    print(env.action_space)
     agent = Agent(input_dims=env.observation_space.shape, env=env,
-                  n_actions=env.action_space.shape[0])
+                  n_actions=env.action_space.n)
     n_games = 250
     # uncomment this line and do a mkdir tmp && mkdir tmp/video if you want to
     # record video of the agent playing the game.
