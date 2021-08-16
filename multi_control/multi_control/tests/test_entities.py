@@ -120,7 +120,7 @@ class TestEntitySet(TestCase):
 
     def test_count_activated_entities(self):
         self.entity_set.interact_with_surroundings(self.agent)
-        result = gym_environment.count_activated_entities(self.entity_set)
+        result = self.entity_set.count_goals(only_activated=True)
         expect = 2
         self.assertEqual(result, expect)
 

@@ -38,36 +38,3 @@ def get_case_two_single_agent():
     ])
     return agents, entity_set
 
-
-def generate_walls(template):
-    pass
-
-
-def basic_cooperation():
-    pass
-
-
-class Case:
-    def __init__(self):
-        self.field = [[0 for i in range(5)] for j in range(5)]
-
-
-class ArrayCase:
-    field = [
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1],
-    ]
-
-
-class AgentMovementCase:
-    field = [
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1],
-    ]
-
