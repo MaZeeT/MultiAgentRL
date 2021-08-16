@@ -71,14 +71,3 @@ class AgentMovementCase:
         [1, 1, 1, 1, 1],
     ]
 
-
-def entity_field(field):
-    x = len(field[0])
-    y = len(field)
-    for j in range(0, y):
-        for i in range(0, x):
-            if field[i][j] == 0:
-                field[i][j] = entities.EmptySpace(i, j)
-            if field[i][j] == 1:
-                field[i][j] = entities.Wall(i, j)
-    return field
