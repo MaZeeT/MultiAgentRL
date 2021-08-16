@@ -65,9 +65,13 @@ model.summary()
 sarsa = SARSAAgent(model, actions)
 sarsa.compile("adam", metrics=["mse"])
 # train_model(sarsa, steps=50000)
-# save_model(sarsa)
+
 load_model(sarsa)
-train_model(sarsa, steps=2000, render=True)
+print("loaded model of 10.000.000 steps")
+train_model(sarsa, steps=2000000, render=True)
+save_model(sarsa)
+print("saved model of 10"
+      "12.000.000 steps")
 
 
 # episodes = 1
