@@ -1,8 +1,8 @@
 import gym
 import numpy as np
 
-import case
-import entities
+from . import case
+from . import entities
 
 
 class GymEnvironment(gym.Env):
@@ -13,17 +13,13 @@ class GymEnvironment(gym.Env):
         lowest_id, highest_id = self.entity_set.get_lowest_and_highest_id()
         num_actions = len(self.options)
         self.num_of_agents = len(self.agents)
-        # self.action_space = gym.spaces.Discrete(num_actions)
+        self.action_space = gym.spaces.Discrete(num_actions)
 
         # action_space: Float and Box are used to simulate an continuous action space
         # at index 0 the movement of the x-axis
         # at index 1 the movement of the y-axis
         # at index 2 the activation of an action
-        self.action_space = gym.spaces.Box(
-            low=np.array([-1.0, -1.0, 0.0]),
-            high=np.array([1.0, 1.0, 1.0]),
-            dtype=np.float16
-        )
+        #self.action_space = gym.spaces.Box(low=np.array([-1.0, -1.0, 0.0]), high=np.array([1.0, 1.0, 1.0]), dtype=np.float16)
         self.observation_space = gym.spaces.Box(
             low=lowest_id, high=highest_id, shape=(width+1, height+1), dtype=np.uint8)
 
@@ -49,9 +45,9 @@ class GymEnvironment(gym.Env):
         else:
             for i in range(self.num_of_agents):
                 action = actions[i]
-                x = actions[0]
-                y = actions[1]
-                act = actions[2]
+                x = action[0]
+                y = action[1]
+                act = action[2]
                 if act > 0.5:
                     self.entity_set.interact_with_surroundings(self.agents[i])
                 else:

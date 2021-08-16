@@ -22,6 +22,8 @@ class CriticNetwork(keras.Model):
         self.q = Dense(1, activation=None)
 
     def call(self, state, action):
+        print(f"state: {state}")
+        print(f"action: {action}")
         action_value = self.fc1(tf.concat([state, action], axis=1))
         action_value = self.fc2(action_value)
 
