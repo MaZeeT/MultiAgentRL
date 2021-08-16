@@ -1,1 +1,0 @@
-this is snake in a gym
