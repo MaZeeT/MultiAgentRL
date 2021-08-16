@@ -37,6 +37,7 @@ class Agent:
 
     def choose_action(self, observation):
         state = tf.convert_to_tensor([observation])
+        state = observation
         actions, _ = self.actor.sample_normal(state, reparameterize=False)
 
         return actions[0]
@@ -84,8 +85,8 @@ class Agent:
         actions = tf.convert_to_tensor(action, dtype=tf.float32)
 
         with tf.GradientTape() as tape:
-            value = tf.squeeze(self.value(states), 1)
-            value_ = tf.squeeze(self.target_value(states_), 1)
+            value = tf.squeeze(self.value(states))
+            value_ = tf.squeeze(self.target_value(states_))
 
             current_policy_actions, log_probs = self.actor.sample_normal(states,
                                                                          reparameterize=False)

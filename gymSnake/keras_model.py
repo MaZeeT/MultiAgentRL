@@ -1,18 +1,16 @@
 import os
 
 import gym
-from tensorflow.python.keras import Input
+import tensorflow
 
-import gym_snake
-from rl.agents import SARSAAgent
+
 from tensorflow import keras, uint32
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
-from keras.layers import Dense, Flatten
-from keras.models import Sequential
-from keras.optimizers import Adam
-
+from tensorflow.python.keras import Input
+import gym_snake
+from rl.agents import SARSAAgent
 import random
 import numpy as np
 
@@ -67,8 +65,8 @@ sarsa.compile("adam", metrics=["mse"])
 # train_model(sarsa, steps=50000)
 # save_model(sarsa)
 load_model(sarsa)
-train_model(sarsa, steps=2000, render=True)
-
+train_model(sarsa, steps=2000000, render=True)
+save_model(sarsa)
 
 # episodes = 1
 # for episode in range(1, episodes + 1):
