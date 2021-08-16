@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from multi_control.envs import entities, gym_environment
+from multi_control.envs import entities, gym_two_agent_test
 
 
 class TestEntitySet(TestCase):

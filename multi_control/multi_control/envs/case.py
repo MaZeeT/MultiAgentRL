@@ -28,9 +28,10 @@ def get_case_two():
 
 def get_basic_cooperation():
     agents = [entities.Agent(3, 3, group_id=1), entities.Agent(3, 9, group_id=2)]
-    goals = [entities.Goal(2,15, interactive_with_group_id=1), entities.Goal(4,15, interactive_with_group_id=2)]
+    goals = [entities.Goal(2, 15, interactive_with_group_id=1), entities.Goal(4, 15, interactive_with_group_id=2)]
+    rWalls = [entities.RemovableWall(1, 6, interactive_with_group_id=2)]
     set = add_outer_walls(x=6, y=18)
-    set += agents + goals
+    set += agents + goals + rWalls
 
     entity_set = entities.EntitySet(set)
     return agents, entity_set

@@ -5,7 +5,7 @@ from . import case, entities
 from multi_control.envs.base_env import BaseEnv
 
 
-class GymEnvironment(BaseEnv):
+class GymTwoAgentTest(BaseEnv):
     def __init__(self):
         self.agents, self.entity_set = case.get_case_two()
         width = self.entity_set.x_max - self.entity_set.x_min
