@@ -1,12 +1,4 @@
-
-class UserInterface:
-    def __init__(self):
-        pass
-
-    def get_direction(self):
-        return get_direction()
-
-
+# Purpose of this file is to get an input from a human when testing the environment.
 def get_direction():
     d = {
         "w": 0,  # up
@@ -20,9 +12,3 @@ def get_direction():
 
 def get_input():
     return input("Pick Direction, by wasd")
-
-
-def render_field(field):
-    for row in field.get_array():
-        print(row)
-    print("\n")

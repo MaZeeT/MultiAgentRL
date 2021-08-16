@@ -94,14 +94,15 @@ class EntitySet:
         for entity in self.entity_set:
             x, y = entity.x, entity.y
             field[x][y] = entity.id
-        #return field
+        # return field
         return np.asarray(field)
 
+
 class Entity(abc.ABC):
-    def __init__(self, x, y):
+    def __init__(self, x, y, id=0):
         self.x = x
         self.y = y
-        self.id = 0  # an id for the specific type of entity
+        self.id = id  # an id for the specific type of entity
 
     def __str__(self):
         return str(self.id)
@@ -127,8 +128,7 @@ class Agent(Entity):
     }
 
     def __init__(self, x, y, group_id=0):
-        super().__init__(x, y)
-        self.id = 2
+        super().__init__(x, y, id=2)
         self.group_id = group_id
 
     def check_next_move(self, direction):
@@ -143,23 +143,30 @@ class Agent(Entity):
 
 class EmptySpace(Entity):
     def __init__(self, x, y):
-        super().__init__(x, y)
-        self.id = 0
+        super().__init__(x, y, id=0)
 
 
 class Wall(Entity):
     def __init__(self, x, y):
-        super().__init__(x, y)
-        self.id = 1
+        super().__init__(x, y, id=1)
 
 
 class Goal(InteractiveEntity):
     def __init__(self, x, y, interactive_with_group_id=0):
-        super().__init__(x, y)
-        self.id = 5
+        super().__init__(x, y, id=5)
         self.group_id = interactive_with_group_id
 
     def activate(self, actor):
         if actor == self.group_id:
             self.activated = True
         return self.activated
+
+
+class RemovableWall(InteractiveEntity):
+    def __init__(self, x, y, interactive_with_group_id=0):
+        super().__init__(x, y, id=9)
+
+    def activate(self, actor):
+        if actor == self.group_id:
+            pass # do action
+        return False

@@ -5,7 +5,7 @@ from MultiAgentOriginal.ui import UserInterface
 
 
 class TestInput(TestCase):
-    method_patch = 'MultiAgentOriginal.ui.UserInterface.get_input'
+    method_patch = 'MultiAgentOriginal.ui.get_input'
 
     def setUp(self):
         self.ui = UserInterface()
