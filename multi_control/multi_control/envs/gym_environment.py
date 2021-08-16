@@ -13,6 +13,8 @@ class GymEnvironment(gym.Env):
         lowest_id, highest_id = self.entity_set.get_lowest_and_highest_id()
         num_actions = len(self.options)
         self.num_of_agents = len(self.agents)
+        self.last_state_reward = 0
+        self.reward_modifier = 10
         self.action_space = gym.spaces.Discrete(num_actions)
 
         # action_space: Float and Box are used to simulate an continuous action space
@@ -42,13 +44,14 @@ class GymEnvironment(gym.Env):
                 move_agent_in_list(self.entity_set, self.agents[i], action)
 
         observation = self.entity_set.get_int_array()
-        reward = 0
+        reward = self.calculate_reward()
         done = self.check_if_done()
         info = {}
         return observation, reward, done, info
 
     def reset(self):
         self.agents, self.entity_set = case.get_case_two()
+        self.last_state_reward = 0
         observation = self.entity_set.get_int_array()
         return observation
 
@@ -56,6 +59,12 @@ class GymEnvironment(gym.Env):
         for row in self.entity_set.get_int_array():
             print(row)
         print("\n")
+
+    def calculate_reward(self):
+        state_reward = self.entity_set.count_goals(only_activated=True)
+        result = state_reward - self.last_state_reward
+        self.last_state_reward = self.entity_set.count_goals(only_activated=True)
+        return result * self.reward_modifier
 
     def check_if_done(self):
         return self.entity_set.count_goals(only_activated=True) == self.entity_set.count_goals(only_activated=False)
