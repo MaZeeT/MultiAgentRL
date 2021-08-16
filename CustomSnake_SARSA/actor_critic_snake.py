@@ -5,7 +5,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import os
 
-from gymSnake import gym_snake
+from CustomSnake_SARSA import gym_snake
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
