@@ -1,19 +1,25 @@
 import gym
 
-import kerasAgents
-# from tensorflow import keras
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
-# from keras.layers import Dense, Flatten
-# from keras.models import Sequential
-# from keras.optimizers import Adam
+from rl.agents import SARSAAgent
+from rl.policy import EpsGreedyQPolicy
 
 import random
 import numpy as np
 
+
 # Source
 # https://medium.com/@abhishek.bn93/using-keras-reinforcement-learning-api-with-openai-gym-6c2a35036c83
+
+
+class RandomAgent:
+    def __init__(self, env):
+        self.action_size = env.action_space.n
+
+    def get_action(self, state):
+        action = random.choice([0, 1])
+        return action
 
 
 env = gym.make("CartPole-v1")
@@ -23,7 +29,7 @@ print("States", states)
 actions = env.action_space
 print("Actions", actions)
 
-agent = kerasAgents.Random(env)
+agent = RandomAgent(env)
 
 
 def get_model(states, actions):
@@ -37,11 +43,7 @@ def get_model(states, actions):
 
 
 model = get_model(env.observation_space.shape[0], env.action_space.n)
-
-from rl.agents import SARSAAgent
-from rl.policy import EpsGreedyQPolicy
-
-policy = EpsGreedyQPolicy
+policy = EpsGreedyQPolicy()
 sarsa = SARSAAgent(model=model, policy=policy, nb_actions=env.action_space.n)
 sarsa.compile("adam", metrics=["mse"])
 sarsa.fit(env, nb_steps=50000, visualize=False, verbose=1)
