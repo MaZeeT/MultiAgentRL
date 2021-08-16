@@ -1,7 +1,7 @@
 import case
 from ui import UserInterface
 import gym_environment
-from MultiAgent.ui import print_entity_set
+from MultiAgentOriginal.ui import print_entity_set
 
 agents, entity_set = case.get_case_two()
 gui = UserInterface()
