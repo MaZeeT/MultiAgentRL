@@ -1,5 +1,4 @@
 import gym
-import numpy
 import numpy as np
 import pygame
 import entity
@@ -31,7 +30,7 @@ class GymSnake(gym.Env):
     def step(self, action):
         # action = utility.decode_action(action) # todo fix awefull movement encoding to int from tuple
         self.steps += 1
-        #self.clock.tick(10)
+        # self.clock.tick(10)
         control_action = self.control_keys()
         if self.player_controlled:
             action = control_action
@@ -78,7 +77,7 @@ class GymSnake(gym.Env):
         board = self.game_array_add_snake(board, self.snake)
         board = self.game_array_add_head(board, self.snake)
         board = self.game_array_add_food(board, self.food)
-        #self.print_board(board)
+        # self.print_board(board)
         return board
 
     def game_array_add_head(self, board, snake):

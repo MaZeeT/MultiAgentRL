@@ -11,8 +11,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.python.keras import Input
 import gym_snake
 from rl.agents import SARSAAgent
-import random
-import numpy as np
+
 
 # Source
 # https://medium.com/@abhishek.bn93/using-keras-reinforcement-learning-api-with-openai-gym-6c2a35036c83

@@ -1,0 +1,5 @@
+tensorflow==2.4.1
+keras-rl==0.4.2
+gym==0.18.0
+numpy==1.19.5
+pygame==2.0.1
