@@ -2,7 +2,9 @@ import gym
 import numpy as np
 import case
 import logic
+import ui
 from ui import UserInterface
+
 
 
 class GymEnvironment(gym.Env):
@@ -46,8 +48,7 @@ class GymEnvironment(gym.Env):
         return observation
 
     def render(self, mode='human'):
-        gui = UserInterface()
-        gui.render_field(self.entity_set)
+        ui.render_field(self.entity_set)
 
     def check_if_done(self, entity_set):
         return entity_set.count_goals(only_activated=True) == entity_set.count_goals(only_activated=False)

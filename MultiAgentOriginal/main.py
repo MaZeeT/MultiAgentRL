@@ -1,14 +1,13 @@
 import case
-from ui import UserInterface
+import ui
 import gym_environment
-from MultiAgentOriginal.ui import print_entity_set
+from MultiAgentOriginal.ui import render_field
 
 agents, entity_set = case.get_case_two()
-gui = UserInterface()
 
 print("agent: " + str(agents))
 print("Entity_set: \n")
-print_entity_set(entity_set)
+render_field(entity_set)
 
 env = gym_environment.GymEnvironment()
 counter = 0
@@ -17,12 +16,12 @@ total_reward = 0
 while isRunning:
     direc = []
     for agent in agents:
-        direc.append(gui.get_direction())
+        direc.append(ui.get_direction())
     observation, reward, done, info = env.step(direc)
     total_reward += reward
     counter += 1
     print("Moves taken:" + str(counter))
-    print_entity_set(observation)
+    render_field(observation)
     if done:
         isRunning = False
         print("finished")
