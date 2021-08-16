@@ -19,10 +19,9 @@ class GymEnvironment(gym.Env):
         # at index 0 the movement of the x-axis
         # at index 1 the movement of the y-axis
         # at index 2 the activation of an action
-        #self.action_space = gym.spaces.Box(low=np.array([-1.0, -1.0, 0.0]), high=np.array([1.0, 1.0, 1.0]), dtype=np.float16)
+        # self.action_space = gym.spaces.Box(low=np.array([-1.0, -1.0, 0.0]), high=np.array([1.0, 1.0, 1.0]), dtype=np.float16)
         self.observation_space = gym.spaces.Box(
-            low=lowest_id, high=highest_id, shape=(width+1, height+1), dtype=np.uint8)
-
+            low=lowest_id, high=highest_id, shape=(width + 1, height + 1), dtype=np.uint8)
 
     options = {
         0: "up",
@@ -35,29 +34,12 @@ class GymEnvironment(gym.Env):
     total_reward = 0
 
     def step(self, actions):
-        if isinstance(actions[0], int):
-            for i in range(self.num_of_agents):
-                action = self.options[actions[i]]
-                if action == "action":
-                    self.entity_set.interact_with_surroundings(self.agents[i])
-                else:
-                    move_agent_in_list(self.entity_set, self.agents[i], action)
-        else:
-            for i in range(self.num_of_agents):
-                action = actions[i]
-                x = action[0]
-                y = action[1]
-                act = action[2]
-                if act > 0.5:
-                    self.entity_set.interact_with_surroundings(self.agents[i])
-                else:
-                    movement = None
-                    if x > 0.33: movement = "left"
-                    if x < -0.33: movement = "right"
-                    if y > 0.33: movement = "down"
-                    if y < -0.33: movement = "up"
-                    move_agent_in_list(self.entity_set, self.agents[i], movement)
-                print(f"x:{x}, y:{y}, act:{act}")
+        for i in range(self.num_of_agents):
+            action = self.options[actions[i]]
+            if action == "action":
+                self.entity_set.interact_with_surroundings(self.agents[i])
+            else:
+                move_agent_in_list(self.entity_set, self.agents[i], action)
 
         observation = self.entity_set.get_int_array()
         reward = 0
@@ -71,7 +53,7 @@ class GymEnvironment(gym.Env):
         return observation
 
     def render(self, mode='human'):
-        for row in self.entity_set.get_array():
+        for row in self.entity_set.get_int_array():
             print(row)
         print("\n")
 
