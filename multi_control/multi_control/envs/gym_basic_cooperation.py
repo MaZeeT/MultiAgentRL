@@ -5,9 +5,9 @@ from . import case, entities
 from multi_control.envs.base_env import BaseEnv
 
 
-class GymEnvironment(BaseEnv):
+class GymBasicCooperation(BaseEnv):
     def __init__(self):
-        self.agents, self.entity_set = case.get_case_two()
+        self.agents, self.entity_set = case.get_basic_cooperation()
         width = self.entity_set.x_max - self.entity_set.x_min
         height = self.entity_set.y_max - self.entity_set.y_min
         lowest_id, highest_id = self.entity_set.get_lowest_and_highest_id()
@@ -26,7 +26,7 @@ class GymEnvironment(BaseEnv):
             low=lowest_id, high=highest_id, shape=(width + 1, height + 1), dtype=np.uint8)
 
     def reset(self):
-        self.agents, self.entity_set = case.get_case_two()
+        self.agents, self.entity_set = case.get_basic_cooperation()
         self.last_state_reward = 0
         observation = self.entity_set.get_int_array()
         return observation

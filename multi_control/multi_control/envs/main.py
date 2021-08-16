@@ -1,10 +1,11 @@
 # Purpose of this file is to test run the environment with human control.
 # Should not be packaged into the Gym-package since a reinforcement algorithm doesn't have any use for it.
-from multi_control.envs import case, gym_environment
+from multi_control.envs import case, gym_environment, gym_basic_cooperation
 from multi_control.envs.human_input import get_direction
 
 if __name__ == "__main__":
-    env = gym_environment.GymEnvironment()
+    #env = gym_environment.GymEnvironment()
+    env = gym_basic_cooperation.GymBasicCooperation()
     state = env.reset()
     agents = env.agents
 
