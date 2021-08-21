@@ -64,10 +64,10 @@ sarsa.compile("adam", metrics=["mse"])
 # train_model(sarsa, steps=50000)
 
 load_model(sarsa)
-print("loaded model of 12.000.000 steps")
+print("loaded model of 16.000.000 steps")
 train_model(sarsa, steps=2000000, render=True)
 save_model(sarsa)
-print("saved model of 14.000.000 steps")
+print("saved model of 18.000.000 steps")
 
 # episodes = 1
 # for episode in range(1, episodes + 1):
