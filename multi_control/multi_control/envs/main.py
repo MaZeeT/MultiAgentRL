@@ -5,8 +5,8 @@ from multi_control.envs.human_input import get_direction
 
 if __name__ == "__main__":
     #env = gym_two_agent_test.GymTwoAgentTest()
-    env = gym_basic_cooperation.GymBasicCooperation()
-    #env = gym_linear_path.GymLinearPath()
+    #env = gym_basic_cooperation.GymBasicCooperation()
+    env = gym_linear_path.GymLinearPath()
     #env = gym_single_agent_test.GymSingleAgentTest()
 
     state = env.reset()

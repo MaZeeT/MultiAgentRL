@@ -19,3 +19,8 @@ register(
     id='linear_path-v0',
     entry_point='multi_control.envs:GymLinearPath',
 )
+
+register(
+    id='doors-v0',
+    entry_point='multi_control.envs:GymDoors',
+)
