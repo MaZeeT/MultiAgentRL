@@ -21,38 +21,46 @@ class GymDoors(BaseEnv):
         self.observation_space = gym.spaces.Box(np.array([0, 0]), np.array([width, height]), dtype=np.uint8)
 
     def get_field(self):
-        agents = [entities.Agent(3, 8, group_id=1, id=3)]
-        agents += [entities.Agent(2, 2, group_id=2, id=2), entities.Agent(3, 4, group_id=2, id=2), entities.Agent(4, 2, group_id=2, id=2)]
+        agents, goals, walls, eWalls, doors = [], [], [], [], []
 
-        goals = [entities.Goal(9, 7, interactive_with_group_id=1), entities.Goal(10, 14, interactive_with_group_id=1)]
+        # group 1
+        agents += [entities.Agent(2, 3, group_id=1, id=3), entities.Agent(4, 2, group_id=1, id=3)]
+        goals += [entities.Goal(17, 3, interactive_with_group_id=1), entities.Goal(19, 2, interactive_with_group_id=1)]
 
-        walls = []
-        for i in range(1,11):
-            walls.append(entities.Wall(6,i))
+        # group 2
+        agents += [entities.Agent(2, 2, group_id=2, id=2), entities.Agent(3, 4, group_id=2, id=2),
+                   entities.Agent(4, 2, group_id=2, id=2)]
+        goals += [entities.Goal(19, 9, interactive_with_group_id=2), entities.Goal(19, 14, interactive_with_group_id=2)]
 
-        removableWallsPositions = [(1, 6), (2, 6), (3, 6), (4, 6), (5, 6)]
-        rWalls = entities.ParentRemovableWall(removableWallsPositions, interactive_with_group_id=1).children
-
-        removableWallsPositionsTwo = [(6, 11), (6, 12), (6, 13), (6, 14), (6, 15)]
-        rWalls += entities.ParentRemovableWall(removableWallsPositionsTwo, interactive_with_group_id=1).children
-
-        explodingWallPositions = []
-        for i in range(1,6):
-            explodingWallPositions.append((i,10))
-        eWalls = entities.ExplodingWall(explodingWallPositions, interactive_with_group_id=2).children
+        for i in range(6, 21):
+            walls.append(entities.Wall(i, 6))
+            walls.append(entities.Wall(i, 11))
 
         explodingWallPositions = []
-        for i in range(7,12):
-            explodingWallPositions.append((i,10))
+        for i in range(12, 16):
+            explodingWallPositions.append((17, i))
         eWalls += entities.ExplodingWall(explodingWallPositions, interactive_with_group_id=2).children
 
-        explodingWallPositions = []
-        for i in range(7,12):
-            explodingWallPositions.append((i,4))
-        eWalls += entities.ExplodingWall(explodingWallPositions, interactive_with_group_id=2).children
+        doorPos = [(9, 10)]
+        for i in range(12, 16):
+            doorPos.append((9, i))
+        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
+        doors += [door] + door.children
 
-        set = self.add_outer_walls(x=12, y=16)
-        set += agents + goals + walls + rWalls + eWalls
+        doorPos = [(15, 10)]
+        for i in range(12, 16):
+            doorPos.append((15, i))
+        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
+        doors += [door] + door.children
+
+        doorPos = [(12, 12)]
+        for i in range(7, 11):
+            doorPos.append((12, i))
+        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
+        doors += [door] + door.children
+
+        set = self.add_outer_walls(x=21, y=16)
+        set += agents + goals + walls + eWalls + doors
 
         entity_set = entities.EntitySet(set)
         return agents, entity_set
