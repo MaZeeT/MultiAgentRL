@@ -22,8 +22,8 @@ class GymBasicCooperation(BaseEnv):
         # at index 1 the movement of the y-axis
         # at index 2 the activation of an action
         # self.action_space = gym.spaces.Box(low=np.array([-1.0, -1.0, 0.0]), high=np.array([1.0, 1.0, 1.0]), dtype=np.float16)
-        self.observation_space = gym.spaces.Box(
-            low=lowest_id, high=highest_id, shape=(width + 1, height + 1), dtype=np.uint8)
+        #self.observation_space = gym.spaces.Box(low=lowest_id, high=highest_id, shape=(width + 1, height + 1), dtype=np.uint8)
+        self.observation_space = gym.spaces.Box(np.array([0, 0]), np.array([width, height]), dtype=np.uint8)
 
     def reset(self):
         self.agents, self.entity_set = case.get_basic_cooperation()

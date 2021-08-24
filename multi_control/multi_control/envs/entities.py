@@ -51,6 +51,15 @@ class EntitySet:
         self.entity_set.append(entity)
         self.update_stats()
 
+    def remove_wall(self, entities):
+        for entity in entities:  # each entity in the removable wall
+            self.remove_entity_at(entity.x, entity.y)
+
+    def remove_entity_at(self, x, y):
+        for entity in self.entity_set:
+            if entity.x == x and entity.y == y:
+                self.entity_set.remove(entity)
+
     def is_occupied(self, position):
         for entity in self.entity_set:
             if entity.x == position[0] and entity.y == position[1]:
@@ -76,6 +85,8 @@ class EntitySet:
                 response = entity.activate(agent.group_id)
                 if response is True:
                     has_interacted = True
+            if isinstance(entity, RemovableWall) and has_interacted:
+                self.remove_wall(entity.parent.children)
         return has_interacted
 
     def get_empty_array(self):
@@ -162,11 +173,49 @@ class Goal(InteractiveEntity):
         return self.activated
 
 
-class RemovableWall(InteractiveEntity):
-    def __init__(self, x, y, interactive_with_group_id=0):
-        super().__init__(x, y, id=9)
+class ParentRemovableWall(InteractiveEntity):
+    def __init__(self, positions, interactive_with_group_id=0):
+        super().__init__(None, None, id=9)
+        self.group_id = interactive_with_group_id
+        self.children = []
+        self.children = self.add_walls(positions)
+
+    def add_walls(self, positions):
+        children = []
+        for pos in positions:
+            x, y = pos
+            children.append(RemovableWall(x, y, parent=self))
+        return children
 
     def activate(self, actor):
         if actor == self.group_id:
-            pass # do action
-        return False
+            self.activated = True
+        return self.activated
+
+
+class DoorButtom(InteractiveEntity):
+    def __init__(self, positions, interactive_with_group_id=0):
+        super().__init__(None, None, id=8)
+        self.group_id = interactive_with_group_id
+        self.children = []
+        self.children = self.add_walls(positions)
+
+    def add_walls(self, positions):
+        children = []
+        for pos in positions:
+            x, y = pos
+            children.append(RemovableWall(x, y, parent=self))
+        return children
+
+    def activate(self, actor):
+        if actor == self.group_id:
+            self.activated = True
+        return self.activated
+
+class RemovableWall(InteractiveEntity):
+    def __init__(self, x, y, parent):
+        super().__init__(x, y, id=parent.id)
+        self.parent = parent
+
+    def activate(self, actor):
+        return self.parent.activate(actor)
