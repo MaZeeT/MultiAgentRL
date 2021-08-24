@@ -147,8 +147,8 @@ class Agent(Entity):
         "right": (1, 0),
     }
 
-    def __init__(self, x, y, group_id=0):
-        super().__init__(x, y, id=2)
+    def __init__(self, x, y, group_id=0, id=2):
+        super().__init__(x, y, id=id)
         self.group_id = group_id
 
     def check_next_move(self, direction):
