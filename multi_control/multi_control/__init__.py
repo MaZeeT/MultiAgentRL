@@ -14,3 +14,8 @@ register(
     id='single_agent-v0',
     entry_point='multi_control.envs:GymSingleAgentTest',
 )
+
+register(
+    id='linear_path-v0',
+    entry_point='multi_control.envs:GymLinearPath',
+)
