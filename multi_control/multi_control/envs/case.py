@@ -36,11 +36,8 @@ def get_basic_cooperation():
     interactiveWallPositions = [(1,12), (2,12), (3,12), (4,12), (5,12)]
     iWalls = entities.ParentRemovableWall(interactiveWallPositions, interactive_with_group_id=2)
 
-    doorPos = [(1,11), (2,11),(3,11),(4,11),(5,11)]
-    door = entities.DoorButtom(doorPos, interactive_with_group_id=2, delay=1)
-
     set = add_outer_walls(x=6, y=18)
-    set += agents + goals + rWalls.children + iWalls.children + [door] + door.children
+    set += agents + goals + rWalls.children + iWalls.children
 
     entity_set = entities.EntitySet(set)
     return agents, entity_set
@@ -48,12 +45,13 @@ def get_basic_cooperation():
 
 def add_outer_walls(x, y):
     wall_set = []
-    print(f"x:{x}, y:{y}")
+    wall_set.append(entities.Wall(x, y))  # add last corner since range(x) exclude the last number in the range.
+
     for xi in range(x):
         wall_set.append(entities.Wall(xi, 0))
         wall_set.append(entities.Wall(xi, y))
 
-    for yi in range(y - 1):
+    for yi in range(y):
         # start from [1:-1] since the x-loop already coveres the corners
         wall_set.append(entities.Wall(0, yi))
         wall_set.append(entities.Wall(x, yi))
