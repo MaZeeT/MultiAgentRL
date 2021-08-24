@@ -163,26 +163,27 @@ class TestEntities(TestCase):
 
     def test_activation_of_goal_False(self):
         x, y = 11, 0
-        entity = entities.Goal(x, y, 5)
+        entity = entities.Goal(x, y, interactive_with_group_id=5)
+        agent = entities.Agent(x, y+1, group_id=3)
         self.assertFalse(entity.activated)
 
-        entity.activate(4)
+        entity.activate(agent)
         self.assertFalse(entity.activated)
 
     def test_activation_of_goal_True(self):
         x, y = 11, 0
-        activation = 3
-        entity = entities.Goal(x, y, activation)
+        entity = entities.Goal(x, y, interactive_with_group_id=4)
+        agent = entities.Agent(x, y+1, group_id=4)
         self.assertFalse(entity.activated)
 
-        entity.activate(activation)
+        entity.activate(agent)
         self.assertTrue(entity.activated)
 
     def test_agent_activate_goal_default_True(self):
         agent = entities.Agent(2, 3)
         goal = entities.Goal(3, 3)
 
-        result = goal.activate(agent.group_id)
+        result = goal.activate(agent)
         self.assertTrue(result)
 
     def test_agent_activate_goal_True(self):
@@ -190,14 +191,14 @@ class TestEntities(TestCase):
         agent = entities.Agent(2, 3, group_id=test_group_id)
         goal = entities.Goal(3, 3, interactive_with_group_id=test_group_id)
 
-        result = goal.activate(agent.group_id)
+        result = goal.activate(agent)
         self.assertTrue(result)
 
     def test_agent_activate_goal_False(self):
         agent = entities.Agent(2, 3, group_id=5)
         goal = entities.Goal(3, 3, interactive_with_group_id=7)
 
-        result = goal.activate(agent.group_id)
+        result = goal.activate(agent)
         self.assertFalse(result)
 
 
@@ -299,5 +300,5 @@ class TestInteractiveEntities(TestCase):
         agent = entities.Agent(2, 2)
         goal = entities.Goal(6, 7)
 
-        result = goal.activate(agent.group_id)
+        result = goal.activate(agent)
         self.assertTrue(result)
