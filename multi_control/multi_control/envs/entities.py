@@ -184,9 +184,9 @@ class Goal(InteractiveEntity):
 
 
 class DoorButtom(InteractiveEntity):
-    def __init__(self, positions, interactive_with_group_id=0, delay=3):
+    def __init__(self, positions, id=7, interactive_with_group_id=0, delay=3):
         x, y = positions.pop(0)
-        super().__init__(x, y, id=7)
+        super().__init__(x, y, id=id)
         self.counter = 0
         self.delay = delay
         self.group_id = interactive_with_group_id
