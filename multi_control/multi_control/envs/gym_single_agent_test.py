@@ -32,8 +32,7 @@ class GymSingleAgentTest(gym.Env):
         self.action_space = gym.spaces.Discrete(num_actions)
 
         # self.observation_space = gym.spaces.Box(low=lowest_id, high=highest_id, shape=(width + 1, height + 1), dtype=np.uint8)
-        self.observation_space = gym.spaces.Box(np.array([0, 0], dtype=np.uint8),
-                                                np.array([width, height], dtype=np.uint8), dtype=np.uint8)
+        self.observation_space = gym.spaces.Box(np.array([0, 0]), np.array([width, height]), dtype=np.uint8)
 
     def step(self, action):
         if action == "action":
