@@ -22,6 +22,7 @@ class BaseEnv(gym.Env):
                     self.entity_set.interact_with_surroundings(self.agents[i])
                 else:
                     move_agent_in_list(self.entity_set, self.agents[i], action)
+            self.entity_set.step()
 
             observation = self.entity_set.get_int_array()
             reward = self.calculate_reward()

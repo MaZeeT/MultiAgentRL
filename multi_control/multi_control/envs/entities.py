@@ -87,7 +87,16 @@ class EntitySet:
                     has_interacted = True
             if isinstance(entity, RemovableWall) and has_interacted:
                 self.remove_wall(entity.parent.children)
+            if isinstance(entity, DoorButtom) and has_interacted:
+                self.remove_wall(entity.children)
         return has_interacted
+
+    def step(self):
+        for entity in self.entity_set:
+            if isinstance(entity, DoorButtom):
+                entity.step()
+                if entity.activated is False:
+                    self.entity_set += entity.children
 
     def get_empty_array(self):
         field = [[EmptySpace(j, i) for i in range(self.y_max + 1)] for j in range(self.x_max + 1)]
@@ -158,8 +167,8 @@ class EmptySpace(Entity):
 
 
 class Wall(Entity):
-    def __init__(self, x, y):
-        super().__init__(x, y, id=1)
+    def __init__(self, x, y, id=1):
+        super().__init__(x, y, id)
 
 
 class Goal(InteractiveEntity):
@@ -177,7 +186,6 @@ class ParentRemovableWall(InteractiveEntity):
     def __init__(self, positions, interactive_with_group_id=0):
         super().__init__(None, None, id=9)
         self.group_id = interactive_with_group_id
-        self.children = []
         self.children = self.add_walls(positions)
 
     def add_walls(self, positions):
@@ -194,23 +202,34 @@ class ParentRemovableWall(InteractiveEntity):
 
 
 class DoorButtom(InteractiveEntity):
-    def __init__(self, positions, interactive_with_group_id=0):
-        super().__init__(None, None, id=8)
+    def __init__(self, positions, interactive_with_group_id=0, delay=3):
+        x, y = positions.pop(0)
+        super().__init__(x, y, id=7)
+        self.counter = 0
+        self.delay = delay
         self.group_id = interactive_with_group_id
-        self.children = []
         self.children = self.add_walls(positions)
 
     def add_walls(self, positions):
         children = []
         for pos in positions:
             x, y = pos
-            children.append(RemovableWall(x, y, parent=self))
+            children.append(Wall(x, y))
         return children
 
     def activate(self, actor):
         if actor == self.group_id:
             self.activated = True
+            self.counter = self.delay
         return self.activated
+
+    def step(self):
+        if self.counter < 1:
+            self.activated = False
+        else:
+            self.counter -= 1
+
+
 
 class RemovableWall(InteractiveEntity):
     def __init__(self, x, y, parent):

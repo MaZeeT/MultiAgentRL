@@ -36,8 +36,11 @@ def get_basic_cooperation():
     interactiveWallPositions = [(1,12), (2,12), (3,12), (4,12), (5,12)]
     iWalls = entities.ParentRemovableWall(interactiveWallPositions, interactive_with_group_id=2)
 
+    doorPos = [(1,11), (2,11),(3,11),(4,11),(5,11)]
+    door = entities.DoorButtom(doorPos, interactive_with_group_id=2, delay=1)
+
     set = add_outer_walls(x=6, y=18)
-    set += agents + goals + rWalls.children + iWalls.children
+    set += agents + goals + rWalls.children + iWalls.children + [door] + door.children
 
     entity_set = entities.EntitySet(set)
     return agents, entity_set
