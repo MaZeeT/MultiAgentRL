@@ -53,6 +53,7 @@ class EntitySet:
 
     def remove_wall(self, entities):
         for entity in entities:  # each entity in the removable wall
+            print(entity)
             self.remove_entity_at(entity.x, entity.y)
 
     def remove_entity_at(self, x, y):
@@ -82,10 +83,10 @@ class EntitySet:
         subset = self.get_nearby_entities(agent)
         for entity in subset:
             if isinstance(entity, InteractiveEntity):
-                response = entity.activate(agent.group_id)
+                response = entity.activate(agent)
                 if response is True:
                     has_interacted = True
-            if isinstance(entity, RemovableWall) and has_interacted:
+            if (isinstance(entity, RemovableWall) or isinstance(entity, ExplodingWall)) and has_interacted:
                 self.remove_wall(entity.parent.children)
             if isinstance(entity, DoorButtom) and has_interacted:
                 self.remove_wall(entity.children)
@@ -177,26 +178,7 @@ class Goal(InteractiveEntity):
         self.group_id = interactive_with_group_id
 
     def activate(self, actor):
-        if actor == self.group_id:
-            self.activated = True
-        return self.activated
-
-
-class ParentRemovableWall(InteractiveEntity):
-    def __init__(self, positions, interactive_with_group_id=0):
-        super().__init__(None, None, id=9)
-        self.group_id = interactive_with_group_id
-        self.children = self.add_walls(positions)
-
-    def add_walls(self, positions):
-        children = []
-        for pos in positions:
-            x, y = pos
-            children.append(RemovableWall(x, y, parent=self))
-        return children
-
-    def activate(self, actor):
-        if actor == self.group_id:
+        if actor.group_id == self.group_id:
             self.activated = True
         return self.activated
 
@@ -218,7 +200,7 @@ class DoorButtom(InteractiveEntity):
         return children
 
     def activate(self, actor):
-        if actor == self.group_id:
+        if actor.group_id == self.group_id:
             self.activated = True
             self.counter = self.delay
         return self.activated
@@ -229,6 +211,44 @@ class DoorButtom(InteractiveEntity):
         else:
             self.counter -= 1
 
+
+class ExplodingWall(InteractiveEntity):
+    def __init__(self, positions, interactive_with_group_id=0):
+        super().__init__(None, None, id=6)
+        self.group_id = interactive_with_group_id
+        self.children = self.add_walls(positions)
+
+    def add_walls(self, positions):
+        children = []
+        for pos in positions:
+            x, y = pos
+            children.append(RemovableWall(x, y, parent=self))
+        return children
+
+    def activate(self, actor):
+        if actor.group_id == self.group_id:
+            self.activated = True
+            self.children.append(actor)
+        return self.activated
+
+
+class ParentRemovableWall(InteractiveEntity):
+    def __init__(self, positions, interactive_with_group_id=0):
+        super().__init__(None, None, id=9)
+        self.group_id = interactive_with_group_id
+        self.children = self.add_walls(positions)
+
+    def add_walls(self, positions):
+        children = []
+        for pos in positions:
+            x, y = pos
+            children.append(RemovableWall(x, y, parent=self))
+        return children
+
+    def activate(self, actor):
+        if actor.group_id == self.group_id:
+            self.activated = True
+        return self.activated
 
 
 class RemovableWall(InteractiveEntity):
