@@ -58,7 +58,7 @@ class EntitySet:
 
     def remove_entity_at(self, x, y):
         for entity in self.entity_set:
-            if entity.x == x and entity.y == y:
+            if entity.x == x and entity.y == y and isinstance(entity,Wall):
                 self.entity_set.remove(entity)
 
     def is_occupied(self, position):
