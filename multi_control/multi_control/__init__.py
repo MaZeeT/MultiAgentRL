@@ -24,3 +24,8 @@ register(
     id='doors-v0',
     entry_point='multi_control.envs:GymDoors',
 )
+
+register(
+    id='simple_door-v0',
+    entry_point='multi_control.envs:GymSimpleDoor',
+)
