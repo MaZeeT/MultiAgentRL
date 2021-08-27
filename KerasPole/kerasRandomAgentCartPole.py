@@ -1,3 +1,4 @@
+# Source: https://medium.com/@abhishek.bn93/using-keras-reinforcement-learning-api-with-openai-gym-6c2a35036c83
 import gym
 
 from tensorflow.keras.layers import Dense, Flatten
@@ -6,11 +7,6 @@ from rl.agents import SARSAAgent
 from rl.policy import EpsGreedyQPolicy
 
 import random
-import numpy as np
-
-
-# Source
-# https://medium.com/@abhishek.bn93/using-keras-reinforcement-learning-api-with-openai-gym-6c2a35036c83
 
 
 class RandomAgent:
