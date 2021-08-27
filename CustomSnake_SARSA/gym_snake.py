@@ -28,9 +28,7 @@ class GymSnake(gym.Env):
         self.state = self.get_state()
 
     def step(self, action):
-        # action = utility.decode_action(action) # todo fix awefull movement encoding to int from tuple
         self.steps += 1
-        # self.clock.tick(10)
         control_action = self.control_keys()
         if self.player_controlled:
             action = control_action
