@@ -3,7 +3,6 @@ import random
 import numpy as np
 from keras.layers import Dense, Flatten
 from keras.models import Sequential
-from keras.optimizers import Adam
 from rl.agents import SARSAAgent
 from rl.policy import EpsGreedyQPolicy
 
