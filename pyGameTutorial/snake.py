@@ -1,9 +1,9 @@
+# Source: https://github.com/kiteco/python-youtube-code/blob/master/snake/snake.py
+# Source: https://www.youtube.com/watch?v=9bBgyOkoBQ0
+
 import pygame
 import sys
 import random
-
-# From https://www.youtube.com/watch?v=9bBgyOkoBQ0
-# From https://github.com/kiteco/python-youtube-code/blob/master/snake/snake.py
 
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 480
