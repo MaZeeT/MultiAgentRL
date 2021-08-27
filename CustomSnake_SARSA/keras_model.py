@@ -1,28 +1,17 @@
+# Source: https://medium.com/@abhishek.bn93/using-keras-reinforcement-learning-api-with-openai-gym-6c2a35036c83
 import os
 
-import gym
-import tensorflow
-
-
-from tensorflow import keras, uint32
+from tensorflow import uint32
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
 from tensorflow.python.keras import Input
 import gym_snake
 from rl.agents import SARSAAgent
 
 
-# Source
-# https://medium.com/@abhishek.bn93/using-keras-reinforcement-learning-api-with-openai-gym-6c2a35036c83
-
-
 env = gym_snake.GymSnake()
 states = env.observation_space.shape
 actions = env.action_space.n
-
-print(env.observation_space)
-print(env.observation_space.shape)
 
 file_path = "./"
 file_dir = os.path.dirname(file_path)
@@ -58,12 +47,8 @@ model = get_model(states, actions)
 print(states)
 model.summary()
 
-
-
-
 sarsa = SARSAAgent(model, actions)
 sarsa.compile("adam", metrics=["mse"])
-# train_model(sarsa, steps=50000)
 
 load_model(sarsa)
 print("loaded model of 18.000.000 steps")

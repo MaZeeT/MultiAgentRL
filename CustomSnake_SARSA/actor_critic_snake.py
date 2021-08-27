@@ -1,5 +1,4 @@
 # source: https://keras.io/examples/rl/actor_critic_cartpole/
-import gym
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -161,9 +160,6 @@ seed = 42
 env = gym_snake.GymSnake()
 num_actions = env.action_space.n
 input_shapes = env.observation_space.shape
-print(num_actions)
-print(input_shapes)
-
 
 optimizer = keras.optimizers.Adam(learning_rate=0.001)
 loss = keras.losses.Huber()
@@ -189,12 +185,7 @@ while isRunning:  # Run until solved
         template = "running reward: {:.2f} at episode {}"
         print(template.format(running_reward, episode_count))
 
-    # if running_reward > 190:  # Condition to consider the task solved
-    #     agent.save_model()
-    #     agent.should_render = True
-#
     # if running_reward > 195:  # Condition to consider the task solved
     #     print("Solved at episode {}!".format(episode_count))
     #     agent.save_model()
     #     isRunning = False
-#

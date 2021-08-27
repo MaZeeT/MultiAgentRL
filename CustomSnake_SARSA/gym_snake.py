@@ -1,11 +1,13 @@
+import sys
+
 import gym
 import numpy as np
 import pygame
-import entity
-import utility
-import gui
+
 import config
-import sys
+import entity
+import gui
+import utility
 
 
 class GymSnake(gym.Env):
@@ -120,7 +122,6 @@ class GymSnake(gym.Env):
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    # print(self.observation_space) #todo remove
                     pygame.quit()
                     sys.exit()
                 elif event.key == pygame.K_r:

@@ -17,12 +17,11 @@ class Food(object):
 
 
 class Snake(object):
-
     movement_direction = [
-        (0, -1),    # 0
-        (0, 1),     # 1
-        (-1, 0),    # 2
-        (1, 0),     # 3
+        (0, -1),  # 0
+        (0, 1),   # 1
+        (-1, 0),  # 2
+        (1, 0),   # 3
     ]
 
     def __init__(self, grid, direction=(1, 0)):

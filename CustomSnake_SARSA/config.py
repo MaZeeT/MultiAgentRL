@@ -1,4 +1,4 @@
-# this is a file to config the parameters of the snake game.
+# The purpose of this file is to configure parameters of the snake game.
 
 window_width = 480
 window_height = 480
