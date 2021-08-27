@@ -29,7 +29,3 @@ class TestInput(TestCase):
     @patch(method_patch, return_value=" ")
     def test_answer_action(self, input):
         self.assertEqual(self.ui.get_direction(), 4)
-
-
-class Test_Render(TestCase):
-    pass

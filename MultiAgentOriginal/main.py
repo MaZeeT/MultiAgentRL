@@ -26,5 +26,3 @@ while isRunning:
         isRunning = False
         print("finished")
         print("reward is :{}".format(total_reward))
-
-

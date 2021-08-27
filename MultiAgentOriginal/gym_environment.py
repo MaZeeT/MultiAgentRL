@@ -3,8 +3,6 @@ import numpy as np
 import case
 import logic
 import ui
-from ui import UserInterface
-
 
 
 class GymEnvironment(gym.Env):

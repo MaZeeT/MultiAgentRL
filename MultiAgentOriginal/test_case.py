@@ -1,12 +1,10 @@
 from unittest import TestCase
-from unittest.mock import patch
 
 import case
 import entities
 
 
 class Test_Case(TestCase):
-
     def setUp(self):
         pass
 

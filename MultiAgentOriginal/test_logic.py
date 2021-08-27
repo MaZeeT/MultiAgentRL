@@ -1,11 +1,9 @@
 from unittest import TestCase
-from unittest.mock import patch
 
 import entities
 import logic
 
 class TestObjectLogic(TestCase):
-
     def test_move_agent_not_occupied(self):
         entity_set = entities.EntitySet([
             entities.Wall(0, 0),

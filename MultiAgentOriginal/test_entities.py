@@ -1,5 +1,4 @@
 from unittest import TestCase
-from unittest.mock import patch
 
 import entities
 import logic
@@ -203,10 +202,6 @@ class TestEntities(TestCase):
 
 
 class TestAgent(TestCase):
-
-    def setUp(self):
-        pass
-
     def test_starting_position(self):
         test_x, test_y = 2, 22
         agent = entities.Agent(test_x, test_y)
