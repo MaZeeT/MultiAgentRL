@@ -1,3 +1,4 @@
+# the purpose of this module is to register the environments to the Gym toolkit for function gym.make("env_name")
 from gym.envs.registration import register
 
 register(
