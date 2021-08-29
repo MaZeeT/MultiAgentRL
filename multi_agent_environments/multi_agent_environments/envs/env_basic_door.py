@@ -8,18 +8,7 @@ from multi_agent_environments.envs.base_env import BaseEnv
 
 class BasicDoor(BaseEnv):
     def __init__(self):
-        self.agents, self.entity_set = self.get_field()
-        width = self.entity_set.x_max - self.entity_set.x_min
-        height = self.entity_set.y_max - self.entity_set.y_min
-        lowest_id, highest_id = self.entity_set.get_lowest_and_highest_id()
-        num_actions = len(self.options)
-        self.num_of_agents = len(self.agents)
-        self.last_state_reward = 0
-        self.reward_modifier = 10
-        self.action_space = gym.spaces.Discrete(num_actions)
-
-        # self.observation_space = gym.spaces.Box(low=lowest_id, high=highest_id, shape=(width + 1, height + 1), dtype=np.uint8)
-        self.observation_space = gym.spaces.Box(np.array([0, 0]), np.array([width, height]), dtype=np.uint8)
+        super().__init__()
 
     def get_field(self):
         agents, goals, walls, doors = [], [], [], []

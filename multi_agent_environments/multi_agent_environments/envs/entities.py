@@ -58,7 +58,7 @@ class EntitySet:
 
     def remove_entity_at(self, x, y):
         for entity in self.entity_set:
-            if entity.x == x and entity.y == y and isinstance(entity,Wall):
+            if entity.x == x and entity.y == y and isinstance(entity, Wall):
                 self.entity_set.remove(entity)
 
     def is_occupied(self, position):
@@ -115,7 +115,7 @@ class EntitySet:
         for entity in self.entity_set:
             x, y = entity.x, entity.y
             field[x][y] = entity.id
-        # return field
+        # return field as numpy array
         return np.asarray(field)
 
 
