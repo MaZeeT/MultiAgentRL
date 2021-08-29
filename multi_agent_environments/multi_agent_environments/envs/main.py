@@ -1,7 +1,7 @@
 # Purpose of this file is to test run the environment with human control.
 # Should not be packaged into the Gym-package since a reinforcement algorithm doesn't have any use for it.
-from multi_agent_environments.envs import gym_two_agent_test, gym_basic_cooperation, gym_single_agent_test, gym_linear_path, \
-    gym_doors, gym_simple_door
+from multi_agent_environments.envs import envtest_two_agent, env_basic_cooperation, envtest_single_agent, env_linear_path, \
+    env_hold_door, env_basic_door
 from multi_agent_environments.envs.human_input import get_direction
 
 if __name__ == "__main__":
@@ -10,7 +10,7 @@ if __name__ == "__main__":
     # env = gym_linear_path.GymLinearPath()
     # env = gym_single_agent_test.GymSingleAgentTest()
     # env = gym_doors.GymDoors()
-    env = gym_simple_door.GymSimpleDoor()
+    env = env_basic_door.BasicDoor()
 
     state = env.reset()
     agents = env.agents

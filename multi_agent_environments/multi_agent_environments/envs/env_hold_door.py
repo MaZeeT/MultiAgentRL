@@ -5,7 +5,7 @@ from . import entities
 from multi_agent_environments.envs.base_env import BaseEnv
 
 
-class GymDoors(BaseEnv):
+class HoldDoor(BaseEnv):
     def __init__(self):
         self.agents, self.entity_set = self.get_field()
         width = self.entity_set.x_max - self.entity_set.x_min
