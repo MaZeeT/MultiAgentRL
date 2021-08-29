@@ -1,11 +1,11 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from multi_control.envs import human_input
+from multi_agent_environments.envs import human_input
 
 
 class TestInput(TestCase):
-    method_patch = 'multi_control.envs.human_input.get_input'
+    method_patch = 'multi_agent_environments.envs.human_input.get_input'
 
     @patch(method_patch, return_value="w")
     def test_answer_w(self, input):

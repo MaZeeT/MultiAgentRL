@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from multi_control.envs import entities, base_env
+from multi_agent_environments.envs import entities, base_env
 
 
 class TestObjectLogic(TestCase):

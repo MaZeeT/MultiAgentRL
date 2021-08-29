@@ -2,7 +2,7 @@ import gym
 import numpy as np
 
 from . import entities
-from multi_control.envs.base_env import BaseEnv
+from multi_agent_environments.envs.base_env import BaseEnv
 
 
 class GymDoors(BaseEnv):

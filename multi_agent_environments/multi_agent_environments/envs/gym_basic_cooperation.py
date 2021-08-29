@@ -2,10 +2,10 @@ import gym
 import numpy as np
 
 from . import entities
-from multi_control.envs.base_env import BaseEnv
+from multi_agent_environments.envs.base_env import BaseEnv
 
 
-class GymSimpleDoor(BaseEnv):
+class GymBasicCooperation(BaseEnv):
     def __init__(self):
         self.agents, self.entity_set = self.get_field()
         width = self.entity_set.x_max - self.entity_set.x_min
@@ -21,27 +21,17 @@ class GymSimpleDoor(BaseEnv):
         self.observation_space = gym.spaces.Box(np.array([0, 0]), np.array([width, height]), dtype=np.uint8)
 
     def get_field(self):
-        agents, goals, walls, doors = [], [], [], []
+        agents = [entities.Agent(3, 3, group_id=1, id=3), entities.Agent(3, 9, group_id=2, id=2)]
+        goals = [entities.Goal(2, 15, interactive_with_group_id=1), entities.Goal(4, 15, interactive_with_group_id=2)]
 
-        # group 1
-        agents += [entities.Agent(2, 2, group_id=1, id=3)]
-        goals += [entities.Goal(7, 2, interactive_with_group_id=1)]
+        removableWallsPositions = [(1, 6), (2, 6), (3, 6), (4, 6), (5, 6)]
+        rWalls = entities.ParentRemovableWall(removableWallsPositions, interactive_with_group_id=2)
 
-        # group 2
-        agents += [entities.Agent(2, 6, group_id=2, id=2)]
-        goals += [entities.Goal(7, 6, interactive_with_group_id=2)]
+        interactiveWallPositions = [(1, 12), (2, 12), (3, 12), (4, 12), (5, 12)]
+        iWalls = entities.ParentRemovableWall(interactiveWallPositions, interactive_with_group_id=2)
 
-        for i in range(4, 9):
-            walls.append(entities.Wall(i, 4))
-
-        doorPos = [(5, 3)]
-        for i in range(5, 8):
-            doorPos.append((5, i))
-        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
-        doors += [door] + door.children
-
-        set = self.add_outer_walls(x=9, y=8)
-        set += agents + goals + walls + doors
+        set = self.add_outer_walls(x=6, y=18)
+        set += agents + goals + rWalls.children + iWalls.children
 
         entity_set = entities.EntitySet(set)
         return agents, entity_set
