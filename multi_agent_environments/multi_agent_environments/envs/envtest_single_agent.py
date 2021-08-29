@@ -1,3 +1,4 @@
+# the purpose of this module is to make a test environment containing a single agent
 import gym
 import numpy as np
 

@@ -1,3 +1,4 @@
+# the purpose of this module is to implement all common functions and data the different environment designs need.
 import gym
 import numpy as np
 

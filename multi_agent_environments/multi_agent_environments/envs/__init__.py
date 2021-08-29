@@ -1,3 +1,4 @@
+# the purpose of this module is to expose the internal modules in the package
 from multi_agent_environments.envs import entities, base_env
 from multi_agent_environments.envs.envtest_single_agent import SingleAgentTest
 from multi_agent_environments.envs.envtest_two_agent import TwoAgentTest

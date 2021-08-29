@@ -1,5 +1,5 @@
-# Purpose of this file is to test run the environment with human control.
-# Should not be packaged into the Gym-package since a reinforcement algorithm doesn't have any use for it.
+# the purpose of this file is to test run the environment with human control.
+# should not be packaged into the Gym-package since a reinforcement algorithm doesn't have any use for it.
 from multi_agent_environments.envs import envtest_two_agent, env_basic_cooperation, envtest_single_agent, env_linear_path, \
     env_hold_door, env_basic_door, env_hold_door_with_back_way
 from multi_agent_environments.envs.human_input import get_direction

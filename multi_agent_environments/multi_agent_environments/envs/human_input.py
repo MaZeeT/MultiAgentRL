@@ -1,4 +1,4 @@
-# Purpose of this file is to get an input from a human when testing the environment.
+# the purpose of this file is to get an input from a human when testing the environment.
 def get_direction():
     d = {
         "w": 0,  # up

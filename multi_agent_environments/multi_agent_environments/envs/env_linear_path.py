@@ -1,3 +1,4 @@
+# the purpose of this module is to implement the environment designed with the name of Linear Path
 import gym
 import numpy as np
 
