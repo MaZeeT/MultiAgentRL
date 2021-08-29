@@ -6,3 +6,4 @@ from multi_agent_environments.envs.env_basic_cooperation import BasicCooperation
 from multi_agent_environments.envs.env_basic_door import BasicDoor
 from multi_agent_environments.envs.env_linear_path import LinearPath
 from multi_agent_environments.envs.env_hold_door import HoldDoor
+from multi_agent_environments.envs.env_hold_door_with_back_way import HoldDoorWithBackWay

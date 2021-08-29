@@ -29,3 +29,8 @@ register(
     id='hold_door-v0',
     entry_point='multi_agent_environments.envs:HoldDoor',
 )
+
+register(
+    id='hold_door_Backway-v0',
+    entry_point='multi_agent_environments.envs:HoldDoorWithBackWay',
+)
