@@ -35,7 +35,7 @@ class BaseEnv(gym.Env):
             if action == "action":
                 self.entity_set.interact_with_surroundings(self.agents[i])
             else:
-                move_agent_in_list(self.entity_set, self.agents[i], action)
+                self.move_agent(self.agents[i], action)
         self.entity_set.step()
 
         observation = self.entity_set.get_int_array()
@@ -80,12 +80,11 @@ class BaseEnv(gym.Env):
 
         return wall_set
 
-
-def move_agent_in_list(entity_set, agent, direction):
-    if direction is None: return False
-    new_position = agent.check_next_move(direction)
-    if not entity_set.is_occupied(new_position):
-        agent.move(direction)
-        return True
-    else:
-        return False
+    def move_agent(self, agent, direction):
+        if direction is None: return False
+        new_position = agent.check_next_move(direction)
+        if not self.entity_set.is_occupied(new_position):
+            agent.move(direction)
+            return True
+        else:
+            return False
