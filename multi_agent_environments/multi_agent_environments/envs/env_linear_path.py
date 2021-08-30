@@ -11,18 +11,19 @@ class LinearPath(BaseEnv):
         super().__init__()
 
     def get_field(self):
+        agents, goals, walls, eWalls, rWalls = [], [], [], [], []
+
         agents = [entities.Agent(3, 8, group_id=1, id=3)]
         agents += [entities.Agent(2, 2, group_id=2, id=2), entities.Agent(3, 4, group_id=2, id=2),
                    entities.Agent(4, 2, group_id=2, id=2)]
 
         goals = [entities.Goal(9, 7, interactive_with_group_id=1), entities.Goal(10, 14, interactive_with_group_id=1)]
 
-        walls = []
         for i in range(1, 11):
             walls.append(entities.Wall(6, i))
 
         removableWallsPositions = [(1, 6), (2, 6), (3, 6), (4, 6), (5, 6)]
-        rWalls = entities.ParentRemovableWall(removableWallsPositions, interactive_with_group_id=1).children
+        rWalls += entities.ParentRemovableWall(removableWallsPositions, interactive_with_group_id=1).children
 
         removableWallsPositionsTwo = [(6, 11), (6, 12), (6, 13), (6, 14), (6, 15)]
         rWalls += entities.ParentRemovableWall(removableWallsPositionsTwo, interactive_with_group_id=1).children
@@ -30,7 +31,7 @@ class LinearPath(BaseEnv):
         explodingWallPositions = []
         for i in range(1, 6):
             explodingWallPositions.append((i, 10))
-        eWalls = entities.ExplodingWall(explodingWallPositions, interactive_with_group_id=2).children
+        eWalls += entities.ExplodingWall(explodingWallPositions, interactive_with_group_id=2).children
 
         explodingWallPositions = []
         for i in range(7, 12):

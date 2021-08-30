@@ -53,12 +53,11 @@ class EntitySet:
 
     def remove_wall(self, entities):
         for entity in entities:  # each entity in the removable wall
-            print(entity)
             self.remove_entity_at(entity.x, entity.y)
 
     def remove_entity_at(self, x, y):
         for entity in self.entity_set:
-            if entity.x == x and entity.y == y and isinstance(entity, Wall):
+            if entity.x == x and entity.y == y and not isinstance(entity, Agent):
                 self.entity_set.remove(entity)
 
     def is_occupied(self, position):

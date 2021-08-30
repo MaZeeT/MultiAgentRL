@@ -10,9 +10,9 @@ if __name__ == "__main__":
     # env = envtest_two_agent.TwoAgentTest()
     # env = env_basic_cooperation.BasicCooperation()
     # env = env_basic_door.BasicDoor()
-    # env = env_linear_path.LinearPath()
+    env = env_linear_path.LinearPath()
     # env = env_hold_door.HoldDoor()
-    env = env_hold_door_with_back_way.HoldDoorWithBackWay()
+    # env = env_hold_door_with_back_way.HoldDoorWithBackWay()
 
     state = env.reset()
     agents = env.agents
