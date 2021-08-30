@@ -27,7 +27,7 @@ class BasicDoor(BaseEnv):
         doorPos = [(5, 3)]
         for i in range(5, 8):
             doorPos.append((5, i))
-        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
+        door = entities.DoorButton(doorPos, interactive_with_group_id=1)
         doors += [door] + door.children
 
         set = self.add_outer_walls(x=9, y=8)

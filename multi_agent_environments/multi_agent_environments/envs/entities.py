@@ -87,13 +87,13 @@ class EntitySet:
                     has_interacted = True
             if (isinstance(entity, RemovableWall) or isinstance(entity, ExplodingWall)) and has_interacted:
                 self.remove_wall(entity.parent.children)
-            if isinstance(entity, DoorButtom) and has_interacted:
+            if isinstance(entity, DoorButton) and has_interacted:
                 self.remove_wall(entity.children)
         return has_interacted
 
     def step(self):
         for entity in self.entity_set:
-            if isinstance(entity, DoorButtom):
+            if isinstance(entity, DoorButton):
                 entity.step()
                 if entity.activated is False:
                     self.entity_set += entity.children
@@ -165,7 +165,7 @@ class Goal(InteractiveEntity):
         return self.activated
 
 
-class DoorButtom(InteractiveEntity):
+class DoorButton(InteractiveEntity):
     def __init__(self, positions, id=7, interactive_with_group_id=0, delay=3):
         x, y = positions.pop(0)
         super().__init__(x, y, id=id)

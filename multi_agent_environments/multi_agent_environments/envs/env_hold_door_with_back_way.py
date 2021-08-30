@@ -49,19 +49,19 @@ class HoldDoorWithBackWay(BaseEnv):
         doorPos = [(9, 10)]
         for i in range(12, 16):
             doorPos.append((9, i))
-        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
+        door = entities.DoorButton(doorPos, interactive_with_group_id=1)
         doors += [door] + door.children
 
         doorPos = [(15, 10)]
         for i in range(12, 16):
             doorPos.append((15, i))
-        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
+        door = entities.DoorButton(doorPos, interactive_with_group_id=1)
         doors += [door] + door.children
 
         doorPos = [(12, 12)]
         for i in range(7, 11):
             doorPos.append((12, i))
-        door = entities.DoorButtom(doorPos, interactive_with_group_id=1)
+        door = entities.DoorButton(doorPos, interactive_with_group_id=1)
         doors += [door] + door.children
 
         set = self.add_outer_walls(x=25, y=16)
