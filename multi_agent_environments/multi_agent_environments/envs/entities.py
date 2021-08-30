@@ -98,17 +98,6 @@ class EntitySet:
                 if entity.activated is False:
                     self.entity_set += entity.children
 
-    def get_empty_array(self):
-        field = [[EmptySpace(j, i) for i in range(self.y_max + 1)] for j in range(self.x_max + 1)]
-        return field
-
-    def get_array(self):
-        field = self.get_empty_array()
-        for entity in self.entity_set:
-            x, y = entity.x, entity.y
-            field[x][y] = entity
-        return field
-
     def get_int_array(self):
         field = [[0 for _ in range(self.y_max + 1)] for _ in range(self.x_max + 1)]
         for entity in self.entity_set:
@@ -159,12 +148,6 @@ class Agent(Entity):
         step = self.d[direction]
         self.x += step[0]
         self.y += step[1]
-
-
-class EmptySpace(Entity):
-    def __init__(self, x, y):
-        super().__init__(x, y, id=0)
-
 
 class Wall(Entity):
     def __init__(self, x, y, id=1):

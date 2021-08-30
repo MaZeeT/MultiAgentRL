@@ -138,12 +138,6 @@ class TestEntities(TestCase):
         self.assertEqual(x, entity.x)
         self.assertEqual(y, entity.y)
 
-    def test_instantiation_of_empty_space(self):
-        x, y = 5, 3
-        entity = entities.EmptySpace(x, y)
-        self.assertEqual(x, entity.x)
-        self.assertEqual(y, entity.y)
-
     def test_instantiation_of_goal(self):
         x, y = -1, 0
         entity = entities.Goal(x, y, "Unused in this test")
