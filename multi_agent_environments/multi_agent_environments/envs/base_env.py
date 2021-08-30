@@ -1,4 +1,5 @@
 # the purpose of this module is to implement all common functions and data the different environment designs need.
+import abc
 import gym
 import numpy as np
 
@@ -28,6 +29,10 @@ class BaseEnv(gym.Env):
 
         self.last_state_reward = 0
         self.reward_modifier = 10
+
+    @abc.abstractmethod
+    def get_field(self):
+        pass
 
     def step(self, actions):
         for i in range(self.num_of_agents):
@@ -64,6 +69,15 @@ class BaseEnv(gym.Env):
     def check_if_done(self):
         return self.entity_set.count_goals(only_activated=True) == self.entity_set.count_goals(only_activated=False)
 
+    def move_agent(self, agent, direction):
+        if direction is None: return False
+        new_position = agent.check_next_move(direction)
+        if not self.entity_set.is_occupied(new_position):
+            agent.move(direction)
+            return True
+        else:
+            return False
+
     # helper function to add walls to the field
     def add_outer_walls(self, x, y):
         wall_set = []
@@ -79,12 +93,3 @@ class BaseEnv(gym.Env):
             wall_set.append(entities.Wall(x, yi))
 
         return wall_set
-
-    def move_agent(self, agent, direction):
-        if direction is None: return False
-        new_position = agent.check_next_move(direction)
-        if not self.entity_set.is_occupied(new_position):
-            agent.move(direction)
-            return True
-        else:
-            return False
