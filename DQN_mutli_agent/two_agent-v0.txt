@@ -1,0 +1,401 @@
+Environment: two_agent-v0
+
+observation at step 1, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 2, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 3, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 4, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 5, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 6, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 7, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 8, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 9, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 10, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 11, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 12, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 13, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 14, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 0 2 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 15, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 16, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 17, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 18, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 2 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 19, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 20, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 21, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 22, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 23, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 24, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 25, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 26, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 27, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 28, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 0 2 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 29, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 0 2 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 30, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 31, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 32, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 33, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 34, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 35, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 36, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 37, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 38, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 39, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 0 2 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 40, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 0 2 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 41, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 42, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 43, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 44, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 0 2 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 45, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 0 2 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 46, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 47, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 0 1]
+ [1 2 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 48, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 0 0 1]
+ [1 2 5 1]
+ [1 1 1 1]]
+
+observation at step 49, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]
+
+observation at step 50, is done: True: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 2 0 1]
+ [1 0 5 1]
+ [1 1 1 1]]

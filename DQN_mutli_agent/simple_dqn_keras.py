@@ -12,8 +12,8 @@ class ReplayBuffer(object):
         self.mem_size = max_size
         self.mem_cntr = 0
         self.discrete = discrete
-        self.state_memory = np.zeros((self.mem_size, )+input_shape)
-        self.new_state_memory = np.zeros((self.mem_size, )+input_shape)
+        self.state_memory = np.zeros((self.mem_size, )+input_shape, dtype=np.int8)
+        self.new_state_memory = np.zeros((self.mem_size, )+input_shape, dtype=np.int8)
         dtype = np.int8 if self.discrete else np.float32
         self.action_memory = np.zeros((self.mem_size, n_actions), dtype=dtype)
         self.reward_memory = np.zeros(self.mem_size)
@@ -91,11 +91,13 @@ class Agent(object):
 
     def learn(self):
         if self.memory.mem_cntr > self.batch_size:
-            state, action, reward, new_state, done = \
-                self.memory.sample_buffer(self.batch_size)
+            state, action, reward, new_state, done = self.memory.sample_buffer(self.batch_size)
 
             action_values = np.array(self.action_space, dtype=np.int8)
             action_indices = np.dot(action, action_values)
+            print(f"action: {action}")
+            print(f"action_value: {action_values}")
+            print(f"action_indices: {action_indices}")
 
             q_eval = self.q_eval.predict(state)
 
@@ -104,6 +106,9 @@ class Agent(object):
             q_target = q_eval.copy()
 
             batch_index = np.arange(self.batch_size, dtype=np.int32)
+
+            print(f"batch_index: {batch_index}")
+            print(f"q-target: {q_target}")
 
             q_target[batch_index, action_indices] = reward + self.gamma * np.max(q_next, axis=1) * done
 

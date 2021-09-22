@@ -1,0 +1,91 @@
+Environment: single_agent-v0
+
+observation at step 1, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 1 1 1]]
+
+observation at step 2, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 1 1 1]]
+
+observation at step 3, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 1 1 1]]
+
+observation at step 4, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 0 2 1]
+ [1 1 1 1]]
+
+observation at step 5, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 1 1 1]]
+
+observation at step 6, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
+
+observation at step 7, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
+
+observation at step 8, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
+
+observation at step 9, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
+
+observation at step 10, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 1 1 1]]
+
+observation at step 11, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
+
+observation at step 12, is done: False: 
+[[1 1 1 1]
+ [1 0 5 1]
+ [1 2 0 1]
+ [1 1 1 1]]
+
+observation at step 13, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
+
+observation at step 14, is done: False: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
+
+observation at step 15, is done: True: 
+[[1 1 1 1]
+ [1 2 5 1]
+ [1 0 0 1]
+ [1 1 1 1]]
